@@ -345,7 +345,7 @@ export default function Home() {
           <figure className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[#071826] shadow-[0_24px_70px_rgb(15_23_42/12%)]">
             <img
               src={withBasePath('/og.png')}
-              alt="Cantalya Yük ve Lojistik için paletli yüklerin yanında bekleyen ticari taşıma kamyonu"
+              alt="Cantalya Nakliye Lojistik için paletli yüklerin yanında bekleyen ticari taşıma kamyonu"
               className="aspect-video w-full object-cover"
             />
           </figure>
@@ -356,7 +356,7 @@ export default function Home() {
         <div className="site-shell">
           <div className="max-w-3xl">
             <p className="eyebrow">Ne taşıyoruz?</p>
-            <h2 className="section-title">Bir kamyon dolusu olmasa da yükünüz yola çıkar.</h2>
+            <h2 className="section-title">Bir tek koliniz bile olsa yükünüz yola çıkar.</h2>
             <p className="section-copy">
               Ev eşyasından paletli malzemeye; bireysel ve ticari yükleri Türkiye genelinde şehir
               içi veya şehirler arası profesyonelce planlıyor, ihtiyacınıza uygun fiyat seçeneği
