@@ -22,10 +22,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Kaynak kodu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Node.js kur
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -36,17 +36,16 @@ jobs:
       - name: Statik siteyi olustur
         run: npm run build:github
         env:
-          NEXT_PUBLIC_BASE_PATH: /cantalyalojistik
-          NEXT_PUBLIC_SITE_URL: https://4vksvg4q9x-afk.github.io/cantalyalojistik
+          NEXT_PUBLIC_SITE_URL: https://cantalyalojistik.com
 
       - name: Pages'i hazirla
         uses: actions/configure-pages@v5
 
       - name: Site dosyalarini yukle
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist/client
 
       - name: GitHub Pages'e yayinla
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
