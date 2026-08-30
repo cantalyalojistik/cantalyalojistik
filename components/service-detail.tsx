@@ -20,7 +20,7 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
       areaServed: { '@type': 'Country', name: 'Türkiye' },
       provider: {
         '@type': 'LocalBusiness',
-        name: 'Cantalya Lojistik',
+        name: 'Cantalya Nakliye & Lojistik',
         telephone: '+90 541 541 32 89',
         url: siteUrl,
       },
@@ -45,7 +45,7 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
     },
   ];
 
-  const whatsAppMessage = `Merhaba Cantalya Lojistik, ${service.metaTitle.split('|')[0].trim().toLocaleLowerCase('tr-TR')} için fiyat almak istiyorum.`;
+  const whatsAppMessage = `Merhaba Cantalya Nakliye & Lojistik, ${service.metaTitle.split('|')[0].trim().toLocaleLowerCase('tr-TR')} için fiyat almak istiyorum.`;
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-background text-foreground">
@@ -53,11 +53,11 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
 
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#071826]/95 text-white backdrop-blur-xl">
         <div className="site-shell flex h-20 items-center justify-between gap-5">
-          <a href={withBasePath('/')} className="flex items-center gap-3" aria-label="Cantalya Lojistik ana sayfa">
+          <a href={withBasePath('/')} className="flex items-center gap-3" aria-label="Cantalya Nakliye ve Lojistik ana sayfa">
             <span className="logo-mark" aria-hidden="true">C</span>
             <span>
               <span className="block text-[15px] font-bold tracking-[0.12em]">CANTALYA</span>
-              <span className="block text-[10px] font-semibold tracking-[0.18em] text-orange-300">NAKLİYE &amp; LOJİSTİK</span>
+              <span className="block text-[10px] font-semibold tracking-[0.18em] text-orange-300">NAKLİYE&amp;LOJİSTİK</span>
             </span>
           </a>
           <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
 
       <footer className="border-t border-slate-200 bg-white py-10">
         <div className="site-shell flex flex-col justify-between gap-5 text-sm text-slate-500 sm:flex-row sm:items-center">
-          <div><strong className="block text-base text-slate-900">Cantalya Lojistik</strong><span>Türkiye geneli nakliye ve taşımacılık</span></div>
+          <div><strong className="block text-base text-slate-900">Cantalya Nakliye &amp; Lojistik</strong><span>Türkiye geneli nakliye ve taşımacılık</span></div>
           <div className="flex flex-wrap gap-x-6 gap-y-2"><a className="hover:text-orange-600" href={`tel:+${phoneInternational}`}>{phoneDisplay}</a><a className="hover:text-orange-600" href={withBasePath('/#hizmetler')}>Tüm hizmetler</a></div>
         </div>
       </footer>

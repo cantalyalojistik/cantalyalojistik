@@ -23,7 +23,7 @@ export const servicePages: Record<string, ServicePage> = {
     title: 'Az miktardaki eşyanız için komple araç ücreti ödemeyin.',
     metaTitle: 'Parça Eşya Taşıma | Türkiye Geneli Uygun Nakliye',
     description:
-      'Türkiye genelinde parça eşya, koli, mobilya ve küçük yük taşıma. Yükünüze uygun araç planı ve net fiyat teklifi için Cantalya Lojistik.',
+      'Türkiye genelinde parça eşya, koli, mobilya ve küçük yük taşıma. Yükünüze uygun araç planı ve net fiyat teklifi için Cantalya Nakliye & Lojistik.',
     lead:
       'Bir kamyonu doldurmayan mobilya, koli, beyaz eşya veya ticari ürünleri uygun güzergâh ve araç planıyla şehir içi ya da şehirler arasında taşıyoruz.',
     highlights: ['Komple araç zorunluluğu yok', 'Şehir içi ve şehirler arası', 'Yüke uygun fiyat planı'],
@@ -111,7 +111,7 @@ export const servicePages: Record<string, ServicePage> = {
     title: 'Evinizi planlı, profesyonel ve bütçenize uygun şekilde taşıyalım.',
     metaTitle: 'Evden Eve Nakliyat | Şehir İçi ve Şehirler Arası',
     description:
-      'Profesyonel evden eve nakliyat ve şehirler arası ev taşıma. Türkiye genelinde uygun fiyat teklifi için Cantalya Lojistik.',
+      'Profesyonel evden eve nakliyat ve şehirler arası ev taşıma. Türkiye genelinde uygun fiyat teklifi için Cantalya Nakliye & Lojistik.',
     lead:
       'Ev ve ofis eşyalarını çıkış-varış, kat, eşya miktarı ve bina koşullarına göre planlıyor; size uygun taşıma seçeneğini sunuyoruz.',
     highlights: ['Şehir içi ve şehirler arası', 'Eşya miktarına uygun araç', 'Net fiyat planlaması'],

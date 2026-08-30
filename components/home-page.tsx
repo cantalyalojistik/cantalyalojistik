@@ -77,7 +77,7 @@ const cargoTypes = [
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  name: 'Cantalya Lojistik',
+  name: 'Cantalya Nakliye & Lojistik',
   url: siteUrl,
   description:
     'Türkiye genelinde parça yük, paletli malzeme, parsiyel taşıma, ticari sevkiyat ve evden eve nakliyat. Merkez Antalya.',
@@ -113,7 +113,7 @@ function QuoteForm() {
     event.preventDefault();
 
     const message = [
-      'Merhaba Cantalya Lojistik, taşıma teklifi almak istiyorum.',
+      'Merhaba Cantalya Nakliye & Lojistik, taşıma teklifi almak istiyorum.',
       `Çıkış: ${origin}`,
       `Varış: ${destination}`,
       `Yük türü: ${cargoType}`,
@@ -220,7 +220,7 @@ export default function Home() {
             <span>
               <span className="block text-[15px] font-bold tracking-[0.12em]">CANTALYA</span>
               <span className="block text-[10px] font-semibold tracking-[0.18em] text-orange-300">
-                NAKLİYE &amp; LOJİSTİK
+                NAKLİYE&amp;LOJİSTİK
               </span>
             </span>
           </a>
@@ -529,7 +529,7 @@ export default function Home() {
       <footer className="border-t border-slate-200 bg-white py-10">
         <div className="site-shell flex flex-col justify-between gap-6 text-sm text-slate-500 sm:flex-row sm:items-center">
           <div>
-            <strong className="block text-base text-slate-900">Cantalya Lojistik</strong>
+            <strong className="block text-base text-slate-900">Cantalya Nakliye &amp; Lojistik</strong>
             <span>Parça yük, paletli malzeme, parsiyel taşıma ve evden eve nakliyat</span>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2">

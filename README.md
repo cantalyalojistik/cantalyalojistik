@@ -1,6 +1,6 @@
-# Cantalya Lojistik
+# Cantalya Nakliye & Lojistik
 
-Cantalya Lojistik'in Türkiye geneli nakliye ve taşımacılık web sitesi.
+Cantalya Nakliye & Lojistik'in Türkiye geneli nakliye ve taşımacılık web sitesi.
 
 ## Hizmetler
 

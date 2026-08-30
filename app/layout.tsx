@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Cantalya Lojistik | Türkiye Geneli Nakliye ve Taşımacılık',
+  title: 'Cantalya Nakliye & Lojistik | Türkiye Geneli Taşımacılık',
   description:
     'Türkiye genelinde profesyonel ve uygun fiyatlı parça eşya, paletli yük, parsiyel nakliye, ticari sevkiyat ve evden eve nakliyat. Merkez Antalya.',
   keywords: [
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     'şehirler arası yük taşıma',
   ],
   openGraph: {
-    title: 'Cantalya Lojistik | Türkiye Geneli Nakliye',
+    title: 'Cantalya Nakliye & Lojistik | Türkiye Geneli Nakliye',
     description:
       'Türkiye genelinde profesyonel ve uygun fiyatlı yük taşıma ve evden eve nakliyat.',
     type: 'website',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cantalya Lojistik | Türkiye Geneli Nakliye',
+    title: 'Cantalya Nakliye & Lojistik | Türkiye Geneli Nakliye',
     description:
       'Türkiye genelinde profesyonel ve uygun fiyatlı yük taşıma ve evden eve nakliyat.',
     images: [`${siteUrl}/og.png`],
