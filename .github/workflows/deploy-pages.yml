@@ -37,7 +37,7 @@ jobs:
         run: npm run build:github
         env:
           NEXT_PUBLIC_BASE_PATH: /cantalyalojistik
-          NEXT_PUBLIC_SITE_URL: https://cantalyanakliyat.github.io/cantalyalojistik
+          NEXT_PUBLIC_SITE_URL: https://4vksvg4q9x-afk.github.io/cantalyalojistik
 
       - name: Pages'i hazirla
         uses: actions/configure-pages@v5

@@ -1,6 +1,6 @@
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  'https://cantalyanakliyat.github.io/cantalyalojistik';
+  'https://4vksvg4q9x-afk.github.io/cantalyalojistik';
 
 export const siteBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
