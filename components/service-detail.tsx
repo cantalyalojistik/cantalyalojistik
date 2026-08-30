@@ -57,7 +57,7 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
             <span className="logo-mark" aria-hidden="true">C</span>
             <span>
               <span className="block text-[15px] font-bold tracking-[0.12em]">CANTALYA</span>
-              <span className="block text-[10px] font-semibold tracking-[0.18em] text-orange-300">LOJİSTİK &amp; NAKLİYAT</span>
+              <span className="block text-[10px] font-semibold tracking-[0.18em] text-orange-300">NAKLİYE &amp; LOJİSTİK</span>
             </span>
           </a>
           <div className="flex items-center gap-3">

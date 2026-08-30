@@ -53,7 +53,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og.png`,
         width: 1600,
         height: 900,
-        alt: 'Cantalya Nakliye Lojistik — parça yük, paletli malzeme ve parsiyel taşıma',
+        alt: 'Cantalya Nakliye & Lojistik — parça yük, paletli malzeme ve parsiyel taşıma',
       },
     ],
   },

@@ -220,7 +220,7 @@ export default function Home() {
             <span>
               <span className="block text-[15px] font-bold tracking-[0.12em]">CANTALYA</span>
               <span className="block text-[10px] font-semibold tracking-[0.18em] text-orange-300">
-                LOJİSTİK &amp; NAKLİYAT
+                NAKLİYE &amp; LOJİSTİK
               </span>
             </span>
           </a>
@@ -345,7 +345,7 @@ export default function Home() {
           <figure className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[#071826] shadow-[0_24px_70px_rgb(15_23_42/12%)]">
             <img
               src={withBasePath('/og.png')}
-              alt="Cantalya Nakliye Lojistik için paletli yüklerin yanında bekleyen ticari taşıma kamyonu"
+              alt="Cantalya Nakliye & Lojistik için paletli yüklerin yanında bekleyen ticari taşıma kamyonu"
               className="aspect-video w-full object-cover"
             />
           </figure>
