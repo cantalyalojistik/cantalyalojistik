@@ -289,7 +289,10 @@ export default function Home() {
             </div>
             <h1 className="mt-7 max-w-3xl text-4xl font-bold leading-[1.08] tracking-[-0.045em] text-white sm:text-6xl">
               Türkiye genelinde yükünüzü ve ev eşyanızı
-              <span className="text-orange-400"> doğru araçla taşıyoruz.</span>
+              <span className="text-orange-400">
+                {' '}
+                doğru araç ve profesyonel ekibimiz ile taşıyoruz.
+              </span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
               Paletli malzeme, ticari ürün, koli, parça eşya ve evden eve nakliyat için şehir içi
