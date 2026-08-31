@@ -49,6 +49,20 @@ const services = [
       'Farklı gönderileri aynı güzergahta planlayarak şehirler arası maliyet avantajı sağlayan taşıma.',
   },
   {
+    icon: Warehouse,
+    href: '/ambar-nakliye',
+    title: 'Ambar nakliye',
+    description:
+      'Tek koli, parça eşya ve paletli yükleri uygun hat ve sevkiyat planıyla Türkiye genelinde taşıma.',
+  },
+  {
+    icon: Route,
+    href: '/sehirler-arasi-nakliye',
+    title: 'Şehirler arası nakliye',
+    description:
+      'İller arası parça yük, ticari sevkiyat ve ev eşyası için doğru araç ve net teslimat planı.',
+  },
+  {
     icon: Truck,
     href: '/ticari-yuk-tasima',
     title: 'Ticari sevkiyat',
@@ -61,6 +75,13 @@ const services = [
     title: 'Evden eve nakliyat',
     description:
       'Ev ve ofis eşyaları için şehir içi veya şehirler arası taşıma planı; yükleme ve yerleştirme sürecinde tek muhatap.',
+  },
+  {
+    icon: MapPin,
+    href: '/antalya-nakliye',
+    title: 'Antalya nakliye',
+    description:
+      'Antalya merkezli şehir içi ve şehirler arası parça yük, paletli malzeme ve ev eşyası taşıma.',
   },
 ];
 
@@ -94,6 +115,8 @@ const structuredData = {
       'Parça eşya taşıma',
       'Paletli yük taşıma',
       'Parsiyel nakliye',
+      'Ambar nakliye',
+      'Şehirler arası nakliye',
       'Ticari malzeme taşımacılığı',
       'Evden eve nakliyat',
     ].map((name) => ({
@@ -198,7 +221,10 @@ function QuoteForm() {
         WhatsApp’tan fiyat iste
       </Button>
       <p className="mt-3 text-center text-xs leading-5 text-slate-400">
-        Bilgileriniz yalnızca taşıma talebinizi yanıtlamak için kullanılır.
+        Bilgileriniz yalnızca taşıma talebinizi yanıtlamak için kullanılır.{' '}
+        <a className="underline underline-offset-2 hover:text-white" href={withBasePath('/gizlilik')}>
+          Gizlilik bilgisi
+        </a>
       </p>
     </form>
   );
@@ -344,7 +370,7 @@ export default function Home() {
         <div className="site-shell">
           <figure className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[#071826] shadow-[0_24px_70px_rgb(15_23_42/12%)]">
             <img
-              src={withBasePath('/og.png')}
+              src={withBasePath('/hero.jpg')}
               alt="Cantalya Nakliye & Lojistik için paletli yüklerin yanında bekleyen ticari taşıma kamyonu"
               className="aspect-video w-full object-cover"
             />
@@ -535,6 +561,15 @@ export default function Home() {
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             <a className="hover:text-orange-600" href={`tel:+${phoneInternational}`}>
               {phoneDisplay}
+            </a>
+            <a className="hover:text-orange-600" href={withBasePath('/ambar-nakliye')}>
+              Ambar nakliye
+            </a>
+            <a className="hover:text-orange-600" href={withBasePath('/sehirler-arasi-nakliye')}>
+              Şehirler arası nakliye
+            </a>
+            <a className="hover:text-orange-600" href={withBasePath('/gizlilik')}>
+              Gizlilik
             </a>
             <span>Türkiye geneli hizmet • Merkez Antalya</span>
           </div>

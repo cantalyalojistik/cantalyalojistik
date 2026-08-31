@@ -21,6 +21,21 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://cantalyalojistik.com/ambar-nakliye/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cantalyalojistik.com/sehirler-arasi-nakliye/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cantalyalojistik.com/antalya-nakliye/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://cantalyalojistik.com/ticari-yuk-tasima/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -29,5 +44,10 @@
     <loc>https://cantalyalojistik.com/evden-eve-nakliyat/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cantalyalojistik.com/gizlilik/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

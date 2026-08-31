@@ -83,6 +83,72 @@ export const servicePages: Record<string, ServicePage> = {
       { question: 'Teslim süresi ne kadar?', answer: 'Güzergâh, yükün hazır olma tarihi ve araç planına göre değişir; teklif sırasında tahmini süre paylaşılır.' },
     ],
   },
+  'ambar-nakliye': {
+    slug: 'ambar-nakliye',
+    eyebrow: 'Türkiye geneli ambar nakliye',
+    title: 'Koli, parça eşya ve paletli yükler için ekonomik ambar taşımacılığı.',
+    metaTitle: 'Ambar Nakliye | Türkiye Geneli Parça Yük Taşıma',
+    description:
+      'Türkiye geneli ambar nakliye, koli, parça eşya ve paletli yük taşıma. Uygun güzergâh, profesyonel planlama ve fiyat teklifi alın.',
+    lead:
+      'Komple araç gerektirmeyen yüklerinizi uygun hat ve sevkiyat planıyla taşıyoruz. Tek koliden paletli ticari yüke kadar her talebi ölçü, ağırlık ve rotasına göre değerlendiriyoruz.',
+    highlights: ['Tek koli ve parça yük kabulü', 'Paletli malzeme taşıma', 'Uygun hat ve fiyat planı'],
+    idealFor: ['Koli ve paketler', 'Parça eşya', 'Paletli ürünler', 'Mobilya ve beyaz eşya', 'Ticari malzeme', 'Makine ve ekipman'],
+    steps: [
+      { title: 'Yük detayını paylaşın', description: 'Koli veya palet adedi, ölçüler, ağırlık ve fotoğrafları gönderin.' },
+      { title: 'Ambar hattını planlayalım', description: 'Çıkış ve varış noktasına uygun güzergâh ve araç seçeneğini belirleyelim.' },
+      { title: 'Alım ve teslimatı yapalım', description: 'Planlanan zamanda yükü alıp varış noktasına ulaştıralım.' },
+    ],
+    faqs: [
+      { question: 'Tek koli ambarla taşınır mı?', answer: 'Evet. Tek koli, birkaç parça eşya veya tek paletlik talepler güzergâh uygunluğuna göre taşınabilir.' },
+      { question: 'Ambar nakliye fiyatı nasıl hesaplanır?', answer: 'Yükün hacmi, ağırlığı, çıkış-varış noktası ve yükleme koşulları birlikte değerlendirilir.' },
+      { question: 'Ev eşyası ambarla taşınabilir mi?', answer: 'Az miktardaki ev eşyası uygun ambalajlama ve rota planıyla parça eşya veya ambar taşıması olarak değerlendirilebilir.' },
+    ],
+  },
+  'sehirler-arasi-nakliye': {
+    slug: 'sehirler-arasi-nakliye',
+    eyebrow: 'Türkiye geneli şehirler arası nakliye',
+    title: 'Şehirler arası yükünüzü doğru araç ve net planla taşıyalım.',
+    metaTitle: 'Şehirler Arası Nakliye | Türkiye Geneli Taşımacılık',
+    description:
+      'Türkiye geneli şehirler arası nakliye; parça eşya, paletli yük, ticari sevkiyat ve ev eşyası taşıma için profesyonel ve uygun fiyatlı çözüm.',
+    lead:
+      'Çıkış ve varış ili fark etmeksizin parça yük, paletli malzeme, ticari ürün ve ev eşyası taleplerini yüke uygun araç ve güzergâhla planlıyoruz.',
+    highlights: ['81 il için talep değerlendirme', 'Yüke uygun araç seçimi', 'Tek muhatapla planlama'],
+    idealFor: ['Şehirler arası parça eşya', 'Paletli ticari yük', 'Ev ve ofis eşyası', 'Mağaza ve depo sevkiyatı', 'Makine ve ekipman', 'Düzenli işletme yükleri'],
+    steps: [
+      { title: 'Rotayı ve yükü bildirin', description: 'Çıkış-varış ili, yük türü, adet, ölçü ve ağırlık bilgisini paylaşın.' },
+      { title: 'Doğru taşıma seçeneğini bulalım', description: 'Komple, parsiyel veya ambar seçeneğini ihtiyacınıza göre planlayalım.' },
+      { title: 'Şehirler arası teslimatı tamamlayalım', description: 'Alım ve varış zamanını netleştirip sevkiyatı gerçekleştirelim.' },
+    ],
+    faqs: [
+      { question: 'Hangi şehirlere nakliye yapıyorsunuz?', answer: 'Türkiye genelindeki tüm iller arasındaki talepleri güzergâh ve araç uygunluğuna göre değerlendiriyoruz.' },
+      { question: 'Şehirler arası tek parça eşya taşınır mı?', answer: 'Evet. Tek parça eşya, birkaç koli veya tek palet için parsiyel ve ambar seçenekleri planlanabilir.' },
+      { question: 'Şehirler arası nakliye ne kadar sürer?', answer: 'Teslim süresi rota, yük türü ve araç planına göre değişir; teklif sırasında tahmini süre paylaşılır.' },
+    ],
+  },
+  'antalya-nakliye': {
+    slug: 'antalya-nakliye',
+    eyebrow: 'Antalya merkezli nakliye ve lojistik',
+    title: 'Antalya’da şehir içi, şehirler arası ve Türkiye geneli nakliye.',
+    metaTitle: 'Antalya Nakliye ve Lojistik | Cantalya',
+    description:
+      'Antalya nakliye ve lojistik hizmetleri: parça eşya, paletli yük, ambar, parsiyel taşıma ve evden eve nakliyat. Profesyonel ve uygun fiyatlı teklif alın.',
+    lead:
+      'Antalya merkezli olarak şehir içi ve şehirler arası parça eşya, paletli malzeme, ticari yük ve ev eşyası taşıma taleplerini profesyonelce planlıyoruz.',
+    highlights: ['Merkez Antalya', 'Şehir içi ve şehirler arası', 'Parça yük ve evden eve'],
+    idealFor: ['Antalya içi parça eşya', 'Antalya çıkışlı veya varışlı yük', 'Paletli ve ticari sevkiyat', 'Evden eve nakliyat', 'Ambar ve parsiyel taşıma', 'Ofis ve mağaza eşyası'],
+    steps: [
+      { title: 'Antalya’daki yük detayını gönderin', description: 'İlçe, varış noktası, yük türü ve yaklaşık miktarı paylaşın.' },
+      { title: 'Araç ve fiyatı planlayalım', description: 'Şehir içi veya şehirler arası ihtiyaca uygun seçeneği belirleyelim.' },
+      { title: 'Taşımayı gerçekleştirelim', description: 'Belirlenen zamanda alım yapıp yükü güvenli şekilde teslim edelim.' },
+    ],
+    faqs: [
+      { question: 'Antalya’nın hangi ilçelerine hizmet veriyorsunuz?', answer: 'Antalya merkez ve ilçelerindeki talepleri çıkış-varış ve araç uygunluğuna göre değerlendiriyoruz.' },
+      { question: 'Antalya’dan Türkiye’nin her yerine yük taşır mısınız?', answer: 'Evet. Antalya çıkışlı veya Antalya varışlı şehirler arası taleplerin yanında diğer iller arasındaki taşımaları da değerlendiriyoruz.' },
+      { question: 'Antalya nakliye fiyatı nasıl belirlenir?', answer: 'Mesafe, yükün hacmi ve ağırlığı, kat bilgisi, yükleme koşulları ve gereken araç tipi fiyatı belirler.' },
+    ],
+  },
   'ticari-yuk-tasima': {
     slug: 'ticari-yuk-tasima',
     eyebrow: 'İşletmelere özel ticari yük taşıma',

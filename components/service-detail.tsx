@@ -167,7 +167,7 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
       <footer className="border-t border-slate-200 bg-white py-10">
         <div className="site-shell flex flex-col justify-between gap-5 text-sm text-slate-500 sm:flex-row sm:items-center">
           <div><strong className="block text-base text-slate-900">Cantalya Nakliye &amp; Lojistik</strong><span>Türkiye geneli nakliye ve taşımacılık</span></div>
-          <div className="flex flex-wrap gap-x-6 gap-y-2"><a className="hover:text-orange-600" href={`tel:+${phoneInternational}`}>{phoneDisplay}</a><a className="hover:text-orange-600" href={withBasePath('/#hizmetler')}>Tüm hizmetler</a></div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2"><a className="hover:text-orange-600" href={`tel:+${phoneInternational}`}>{phoneDisplay}</a><a className="hover:text-orange-600" href={withBasePath('/#hizmetler')}>Tüm hizmetler</a><a className="hover:text-orange-600" href={withBasePath('/gizlilik')}>Gizlilik</a></div>
         </div>
       </footer>
     </main>
