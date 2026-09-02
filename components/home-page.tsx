@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 
 import { Button, buttonVariants } from '@/components/ui/button';
+import { reportContactConversion } from '@/components/google-ads-conversion-tracker';
 import { Input } from '@/components/ui/input';
 import { siteUrl, withBasePath } from '@/lib/site';
 import { cn } from '@/lib/utils';
@@ -143,6 +144,7 @@ function QuoteForm() {
       `Yaklaşık miktar: ${load || 'Belirtilmedi'}`,
     ].join('\n');
 
+    reportContactConversion('whatsapp');
     window.open(
       `https://wa.me/${phoneInternational}?text=${encodeURIComponent(message)}`,
       '_blank',
