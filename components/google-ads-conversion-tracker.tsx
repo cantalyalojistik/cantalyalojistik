@@ -33,9 +33,14 @@ export function reportContactConversion(method: 'phone' | 'whatsapp') {
     contact_method: method,
   });
 
-  if (window.sessionStorage.getItem(sessionConversionKey)) return;
+  try {
+    if (window.sessionStorage.getItem(sessionConversionKey)) return;
+    window.sessionStorage.setItem(sessionConversionKey, method);
+  } catch {
+    // Privacy settings may block browser storage. Conversion tracking should
+    // still work in that case, even if per-session deduplication is unavailable.
+  }
 
-  window.sessionStorage.setItem(sessionConversionKey, method);
   gtag('event', 'conversion', {
     send_to: conversionDestination,
     value: 1,
