@@ -10,7 +10,7 @@ Cantalya Nakliye & Lojistik'in Türkiye geneli nakliye ve taşımacılık web si
 - Ticari yük ve sevkiyat
 - Evden eve nakliyat
 
-Merkez Antalya, hizmet bölgesi Türkiye genelidir.
+Hizmet bölgesi Türkiye genelidir.
 
 ## Yerel geliştirme
 

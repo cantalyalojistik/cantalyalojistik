@@ -81,7 +81,7 @@ const services = [
     href: '/antalya-nakliye',
     title: 'Antalya nakliye',
     description:
-      'Antalya merkezli şehir içi ve şehirler arası parça yük, paletli malzeme ve ev eşyası taşıma.',
+      'Antalya şehir içi ve şehirler arası parça yük, paletli malzeme ve ev eşyası taşıma.',
   },
 ];
 
@@ -101,7 +101,7 @@ const structuredData = {
   name: 'Cantalya Nakliye & Lojistik',
   url: siteUrl,
   description:
-    'Türkiye genelinde parça yük, paletli malzeme, parsiyel taşıma, ticari sevkiyat ve evden eve nakliyat. Merkez Antalya.',
+    'Türkiye genelinde parça yük, paletli malzeme, parsiyel taşıma, ticari sevkiyat ve evden eve nakliyat. 81 ilde hizmet.',
   telephone: '+90 541 541 32 89',
   areaServed: {
     '@type': 'Country',
@@ -285,7 +285,7 @@ export default function Home() {
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-300/25 bg-orange-400/10 px-4 py-2 text-sm font-medium text-orange-200">
               <MapPin className="size-4" aria-hidden="true" />
-              Türkiye geneli taşıma • Merkez Antalya
+              Türkiye geneli taşıma • 81 ilde hizmet
             </div>
             <h1 className="mt-7 max-w-3xl text-4xl font-bold leading-[1.08] tracking-[-0.045em] text-white sm:text-6xl">
               Türkiye genelinde yükünüzü ve ev eşyanızı
@@ -455,16 +455,24 @@ export default function Home() {
           <div className="route-panel">
             <div className="relative z-10 max-w-2xl">
               <p className="eyebrow">Türkiye geneli taşıma ağı</p>
-              <h2 className="section-title">Merkez Antalya, taşıma Türkiye genelinde.</h2>
+              <h2 className="section-title">Türkiye’nin 81 ilinde taşıma hizmeti.</h2>
               <p className="section-copy">
-                Merkezimiz Antalya’da. Türkiye’nin tüm illeri arasında parça yük, paletli malzeme,
-                ticari sevkiyat ve evden eve nakliyat taleplerini değerlendiriyoruz.
+                Çıkış ve varış ili fark etmeksizin parça yük, paletli malzeme, ticari sevkiyat ve
+                evden eve nakliyat taleplerini Türkiye genelinde değerlendiriyoruz.
               </p>
               <div className="mt-8 flex flex-wrap gap-2">
-                {['Antalya merkez', 'İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Konya', 'Türkiye geneli'].map(
-                  (city) => (
-                    <span key={city} className="route-chip">
-                      {city}
+                {[
+                  'Türkiye geneli',
+                  '81 ilde hizmet',
+                  'Şehir içi',
+                  'Şehirler arası',
+                  'Parça eşya',
+                  'Paletli yük',
+                  'Evden eve',
+                ].map(
+                  (serviceArea) => (
+                    <span key={serviceArea} className="route-chip">
+                      {serviceArea}
                     </span>
                   ),
                 )}
@@ -498,7 +506,7 @@ export default function Home() {
               ],
               [
                 'Hangi illere taşıma yapıyorsunuz?',
-                'Merkezimiz Antalya’dadır; taşıma taleplerini çıkış ve varış ili fark etmeksizin Türkiye genelinde değerlendiriyoruz.',
+                'Çıkış ve varış ili fark etmeksizin Türkiye’nin 81 ilindeki taşıma taleplerini değerlendiriyoruz.',
               ],
               [
                 'Evden eve nakliyat yapıyor musunuz?',
@@ -574,7 +582,7 @@ export default function Home() {
             <a className="hover:text-orange-600" href={withBasePath('/gizlilik')}>
               Gizlilik
             </a>
-            <span>Türkiye geneli hizmet • Merkez Antalya</span>
+            <span>Türkiye geneli hizmet • 81 ilde taşıma</span>
           </div>
         </div>
       </footer>

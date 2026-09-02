@@ -129,23 +129,23 @@ export const servicePages: Record<string, ServicePage> = {
   },
   'antalya-nakliye': {
     slug: 'antalya-nakliye',
-    eyebrow: 'Antalya merkezli nakliye ve lojistik',
+    eyebrow: 'Türkiye geneli nakliye ve lojistik',
     title: 'Antalya’da şehir içi, şehirler arası ve Türkiye geneli nakliye.',
     metaTitle: 'Antalya Nakliye ve Lojistik | Cantalya',
     description:
       'Antalya nakliye ve lojistik hizmetleri: parça eşya, paletli yük, ambar, parsiyel taşıma ve evden eve nakliyat. Profesyonel ve uygun fiyatlı teklif alın.',
     lead:
-      'Antalya merkezli olarak şehir içi ve şehirler arası parça eşya, paletli malzeme, ticari yük ve ev eşyası taşıma taleplerini profesyonelce planlıyoruz.',
-    highlights: ['Merkez Antalya', 'Şehir içi ve şehirler arası', 'Parça yük ve evden eve'],
-    idealFor: ['Antalya içi parça eşya', 'Antalya çıkışlı veya varışlı yük', 'Paletli ve ticari sevkiyat', 'Evden eve nakliyat', 'Ambar ve parsiyel taşıma', 'Ofis ve mağaza eşyası'],
+      'Antalya dahil Türkiye’nin tüm illeri arasındaki parça eşya, paletli malzeme, ticari yük ve ev eşyası taşıma taleplerini profesyonelce planlıyoruz.',
+    highlights: ['Türkiye geneli', 'Şehir içi ve şehirler arası', 'Parça yük ve evden eve'],
+    idealFor: ['Antalya dahil şehir içi parça eşya', 'Türkiye’nin tüm illeri arasında yük', 'Paletli ve ticari sevkiyat', 'Evden eve nakliyat', 'Ambar ve parsiyel taşıma', 'Ofis ve mağaza eşyası'],
     steps: [
-      { title: 'Antalya’daki yük detayını gönderin', description: 'İlçe, varış noktası, yük türü ve yaklaşık miktarı paylaşın.' },
+      { title: 'Yük detayını gönderin', description: 'Çıkış ili, varış noktası, yük türü ve yaklaşık miktarı paylaşın.' },
       { title: 'Araç ve fiyatı planlayalım', description: 'Şehir içi veya şehirler arası ihtiyaca uygun seçeneği belirleyelim.' },
       { title: 'Taşımayı gerçekleştirelim', description: 'Belirlenen zamanda alım yapıp yükü güvenli şekilde teslim edelim.' },
     ],
     faqs: [
-      { question: 'Antalya’nın hangi ilçelerine hizmet veriyorsunuz?', answer: 'Antalya merkez ve ilçelerindeki talepleri çıkış-varış ve araç uygunluğuna göre değerlendiriyoruz.' },
-      { question: 'Antalya’dan Türkiye’nin her yerine yük taşır mısınız?', answer: 'Evet. Antalya çıkışlı veya Antalya varışlı şehirler arası taleplerin yanında diğer iller arasındaki taşımaları da değerlendiriyoruz.' },
+      { question: 'Antalya’nın hangi ilçelerine hizmet veriyorsunuz?', answer: 'Antalya’nın tüm ilçelerindeki talepleri çıkış-varış ve araç uygunluğuna göre değerlendiriyoruz.' },
+      { question: 'Antalya’dan Türkiye’nin her yerine yük taşır mısınız?', answer: 'Evet. Antalya çıkışlı veya varışlı taleplerin yanı sıra Türkiye’nin diğer illeri arasındaki taşımaları da değerlendiriyoruz.' },
       { question: 'Antalya nakliye fiyatı nasıl belirlenir?', answer: 'Mesafe, yükün hacmi ve ağırlığı, kat bilgisi, yükleme koşulları ve gereken araç tipi fiyatı belirler.' },
     ],
   },

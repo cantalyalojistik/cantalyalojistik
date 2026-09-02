@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'Cantalya Nakliye & Lojistik | Türkiye Geneli Taşımacılık',
   description:
-    'Türkiye genelinde profesyonel ve uygun fiyatlı parça eşya, paletli yük, parsiyel nakliye, ticari sevkiyat ve evden eve nakliyat. Merkez Antalya.',
+    'Türkiye genelinde profesyonel ve uygun fiyatlı parça eşya, paletli yük, parsiyel nakliye, ticari sevkiyat ve evden eve nakliyat. 81 ilde hizmet.',
   keywords: [
     'Türkiye geneli nakliye',
     'Türkiye geneli parça eşya taşıma',
