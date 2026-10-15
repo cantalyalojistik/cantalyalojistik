@@ -19,37 +19,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Cantalya Nakliye & Lojistik | Türkiye Geneli Taşımacılık',
+  title: 'Antalya Evden Eve Nakliyat | Cantalya Nakliye & Lojistik',
   description:
-    'Türkiye genelinde profesyonel ve uygun fiyatlı parça eşya, paletli yük, parsiyel nakliye, ticari sevkiyat ve evden eve nakliyat. 81 ilde hizmet.',
-  keywords: [
-    'Türkiye geneli nakliye',
-    'Türkiye geneli parça eşya taşıma',
-    'parça yük taşıma',
-    'küçük yük taşıma',
-    'koli taşıma',
-    'palet nakliye',
-    'ambar nakliye',
-    'nakliye firması',
-    'nakliye fiyatı',
-    'evden eve nakliyat',
-    'şehirler arası evden eve nakliyat',
-    'ofis taşıma',
-    'Antalya evden eve nakliyat',
-    'Antalya nakliye',
-    'Antalya nakliye firması',
-    'Antalya parça eşya taşıma',
-    'Antalya paletli yük taşıma',
-    'Antalya parsiyel nakliye',
-    'Antalya ambar',
-    'Antalya lojistik',
-    'şehirler arası yük taşıma',
-    'şehirler arası nakliye',
-  ],
+    'Antalya şehir içi evden eve nakliyat, asansörlü taşıma ve parça eşya taşıma. Ücretsiz keşif ve hızlı teklif: Konyaaltı, Muratpaşa, Kepez, Döşemealtı.',
   openGraph: {
-    title: 'Cantalya Nakliye & Lojistik | Türkiye Geneli Nakliye',
+    title: 'Antalya Evden Eve Nakliyat | Cantalya Nakliye & Lojistik',
     description:
-      'Türkiye genelinde profesyonel ve uygun fiyatlı yük taşıma ve evden eve nakliyat.',
+      'Eviniz veya birkaç parça eşyanız için Antalya şehir içi taşıma. Ücretsiz keşif, ambalajlama ve ihtiyacınıza uygun fiyat teklifi.',
     type: 'website',
     locale: 'tr_TR',
     url: siteUrl,
@@ -58,15 +34,15 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og.png`,
         width: 1600,
         height: 900,
-        alt: 'Cantalya Nakliye & Lojistik — parça yük, paletli malzeme ve parsiyel taşıma',
+        alt: 'Cantalya Nakliye & Lojistik',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cantalya Nakliye & Lojistik | Türkiye Geneli Nakliye',
+    title: 'Antalya Evden Eve Nakliyat | Cantalya Nakliye & Lojistik',
     description:
-      'Türkiye genelinde profesyonel ve uygun fiyatlı yük taşıma ve evden eve nakliyat.',
+      'Antalya şehir içi ev taşıma ve küçük nakliye. Ücretsiz keşif, asansörlü taşıma ve hızlı teklif.',
     images: [`${siteUrl}/og.png`],
   },
   robots: {
@@ -86,18 +62,18 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Script
+        {process.env.NODE_ENV === 'production' && <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18420736857"
           strategy="afterInteractive"
-        />
-        <Script id="google-ads-tag" strategy="afterInteractive">
+        />}
+        {process.env.NODE_ENV === 'production' && <Script id="google-ads-tag" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
             window.gtag('js', new Date());
             window.gtag('config', 'AW-18420736857');
           `}
-        </Script>
+        </Script>}
         <GoogleAdsConversionTracker />
         {children}
       </body>

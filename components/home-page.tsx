@@ -1,23 +1,19 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
-  Boxes,
   CheckCircle2,
-  Clock3,
   House,
   MapPin,
   MessageCircle,
+  MoveVertical,
   PackageCheck,
   Phone,
-  Route,
   ShieldCheck,
-  Truck,
-  Warehouse,
+  Sofa,
 } from 'lucide-react';
-
 import { Button, buttonVariants } from '@/components/ui/button';
 import { reportContactConversion } from '@/components/google-ads-conversion-tracker';
 import { Input } from '@/components/ui/input';
@@ -26,124 +22,167 @@ import { cn } from '@/lib/utils';
 
 const phoneDisplay = '0541 541 32 89';
 const phoneInternational = '905415413289';
+type QuoteService = 'Evden eve nakliyat' | 'Şehir içi parça eşya taşıma';
 
-const services = [
-  {
-    icon: Boxes,
-    href: '/parca-esya-tasima',
-    title: 'Parça eşya taşıma',
-    description:
-      'Aracı tamamen doldurmayan koli, mobilya, ekipman ve ticari yükler için ekonomik sevkiyat planı.',
-  },
-  {
-    icon: PackageCheck,
-    href: '/paletli-yuk-tasima',
-    title: 'Paletli yük taşıma',
-    description:
-      'Paletli ürün, makine parçası ve işletme malzemeleri için yüke uygun araç ve düzenli yükleme.',
-  },
-  {
-    icon: Warehouse,
-    href: '/parsiyel-nakliye',
-    title: 'Parsiyel ve ambar',
-    description:
-      'Farklı gönderileri aynı güzergahta planlayarak şehirler arası maliyet avantajı sağlayan taşıma.',
-  },
-  {
-    icon: Warehouse,
-    href: '/ambar-nakliye',
-    title: 'Ambar nakliye',
-    description:
-      'Tek koli, parça eşya ve paletli yükleri uygun hat ve sevkiyat planıyla Türkiye genelinde taşıma.',
-  },
-  {
-    icon: Route,
-    href: '/sehirler-arasi-nakliye',
-    title: 'Şehirler arası nakliye',
-    description:
-      'İller arası parça yük, ticari sevkiyat ve ev eşyası için doğru araç ve net teslimat planı.',
-  },
-  {
-    icon: Truck,
-    href: '/ticari-yuk-tasima',
-    title: 'Ticari sevkiyat',
-    description:
-      'Mağaza, üretici, tedarikçi ve küçük işletmeler için tek seferlik veya düzenli yük transferi.',
-  },
+const localServices = [
   {
     icon: House,
     href: '/evden-eve-nakliyat',
     title: 'Evden eve nakliyat',
     description:
-      'Ev ve ofis eşyaları için şehir içi veya şehirler arası taşıma planı; yükleme ve yerleştirme sürecinde tek muhatap.',
+      'Ücretsiz keşif, ambalajlama, mobilya sökme-kurma ve taşıma planıyla evinizi Antalya içinde taşıyalım.',
   },
   {
-    icon: MapPin,
-    href: '/antalya-nakliye',
-    title: 'Antalya nakliye',
+    icon: Sofa,
+    href: '/antalya-parca-esya-tasima',
+    title: 'Şehir içi parça eşya taşıma',
     description:
-      'Antalya şehir içi ve şehirler arası parça yük, paletli malzeme ve ev eşyası taşıma.',
+      'Bir koltuk, buzdolabı veya birkaç parça eşya için de buradayız. Eşya miktarına ve mesafeye uygun küçük nakliye teklifi alın.',
+  },
+  {
+    icon: MoveVertical,
+    href: '/asansorlu-evden-eve-nakliyat',
+    title: 'Asansörlü ev taşıma',
+    description:
+      'Kat, bina cephesi ve araç yaklaşma alanını değerlendirelim; uygun yapılarda dış cephe asansörlü taşımayı planlayalım.',
   },
 ];
 
-const cargoTypes = [
-  'Ev eşyası / evden eve',
-  'Parça eşya',
-  'Paletli malzeme',
-  'Koli / paket',
-  'Makine / ekipman',
-  'Ticari ürün',
-  'Diğer',
+const otherServices = [
+  ['Türkiye geneli parça eşya taşıma', '/parca-esya-tasima'],
+  ['Paletli yük taşıma', '/paletli-yuk-tasima'],
+  ['Parsiyel nakliye', '/parsiyel-nakliye'],
+  ['Ambar nakliye', '/ambar-nakliye'],
+  ['Şehirler arası nakliye', '/sehirler-arasi-nakliye'],
+  ['Ticari yük taşıma', '/ticari-yuk-tasima'],
+  ['Antalya nakliye hizmetleri', '/antalya-nakliye'],
+];
+
+const districts = [
+  {
+    id: 'konyaalti',
+    name: 'Konyaaltı',
+    description:
+      'Apartman veya site taşınmalarında araç girişini, katları ve asansör kurulabilecek alanı keşifte birlikte değerlendiriyoruz.',
+  },
+  {
+    id: 'muratpasa',
+    name: 'Muratpaşa',
+    description:
+      'Evden eve taşımada ve tek parça teslimatlarda sokak erişimi, yükleme noktası ve bina girişine göre taşıma planı hazırlıyoruz.',
+  },
+  {
+    id: 'kepez',
+    name: 'Kepez',
+    description:
+      'Evinizin tamamı, yeni aldığınız mobilya veya birkaç beyaz eşya için eşya listesine uygun araç ve ekip planlıyoruz.',
+  },
+  {
+    id: 'dosemealti',
+    name: 'Döşemealtı',
+    description:
+      'Daire, müstakil ev ve site taşınmalarında iki adres arasındaki mesafeyi, araç yaklaşımını ve taşınacak eşya hacmini birlikte hesaplıyoruz.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Antalya evden eve nakliyat fiyatı nasıl belirlenir?',
+    answer:
+      'Oda ve eşya miktarı, iki konum arasındaki mesafe, katlar, asansör ihtiyacı, ambalajlama ve sökme-kurma kapsamı birlikte değerlendirilir. Fotoğraf veya ücretsiz yerinde keşif sonrasında hizmet kapsamı belirtilen teklif hazırlanır.',
+  },
+  {
+    question: 'Sadece iki parça eşya, koltuk veya buzdolabı taşıyor musunuz?',
+    answer:
+      'Evet. Antalya şehir içinde bir koltuk, buzdolabı, çamaşır makinesi ya da birkaç parça ev eşyası için de taşıma hizmeti sunuyoruz. Eşya fotoğraflarını, çıkış-varış ilçelerini ve kat bilgilerini paylaşarak teklif alabilirsiniz.',
+  },
+  {
+    question: 'Ücretsiz keşif için ne yapmalıyım?',
+    answer:
+      'Telefon veya WhatsApp üzerinden bize ulaşabilirsiniz. Fotoğraf ve görüntüyle ön değerlendirme yapabilir, ev taşımanız için uygun bir zamanda ücretsiz yerinde keşif planlayabiliriz.',
+  },
+  {
+    question: 'Her binada asansörlü taşıma yapılabilir mi?',
+    answer:
+      'Dış cephe asansörü için bina cephesi, pencere veya balkon erişimi, kat ve araç kurulacak alanın uygun olması gerekir. Uygunluğu keşifte değerlendirir, mümkün değilse diğer taşıma seçeneklerini konuşuruz.',
+  },
+  {
+    question: 'Ambalajlama ve mobilya sökme-kurma yapıyor musunuz?',
+    answer:
+      'Evet. Ambalajlama ve mobilya sökme-kurma hizmetleri sunuyoruz. Hangi eşyalar için bu işlemlerin gerektiğini teklif öncesinde belirleyip taşıma kapsamına yazıyoruz.',
+  },
+  {
+    question: 'Sigortalı taşımanın kapsamı nedir?',
+    answer:
+      'Sigortalı taşıma hizmeti sunuyoruz. Teminat, limitler ve istisnalar ilgili poliçenin koşullarına bağlıdır; taşıma öncesinde teklif ve poliçe kapsamını birlikte netleştiriyoruz.',
+  },
+  {
+    question: 'Hangi ilçelerde şehir içi taşıma yapıyorsunuz?',
+    answer:
+      'Konyaaltı, Muratpaşa, Kepez ve Döşemealtı ilçelerinde ve bu ilçeler arasındaki evden eve ve parça eşya taşımalarını planlıyoruz. Mahalle ve kat bilgilerini paylaşmanız ilk teklif için yeterlidir.',
+  },
 ];
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': 'MovingCompany',
+  '@id': `${siteUrl}/#business`,
   name: 'Cantalya Nakliye & Lojistik',
   url: siteUrl,
   description:
-    'Türkiye genelinde parça yük, paletli malzeme, parsiyel taşıma, ticari sevkiyat ve evden eve nakliyat. 81 ilde hizmet.',
+    'Antalya Konyaaltı, Muratpaşa, Kepez ve Döşemealtı ilçelerinde evden eve nakliyat, asansörlü taşıma ve şehir içi parça eşya taşıma.',
   telephone: '+90 541 541 32 89',
-  areaServed: {
-    '@type': 'Country',
-    name: 'Türkiye',
-  },
-  sameAs: ['https://www.instagram.com/cantalyanakliyat'],
+  areaServed: districts.map(({ name }) => ({
+    '@type': 'AdministrativeArea',
+    name: `${name}, Antalya`,
+  })),
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Yük taşıma hizmetleri',
-    itemListElement: [
-      'Parça eşya taşıma',
-      'Paletli yük taşıma',
-      'Parsiyel nakliye',
-      'Ambar nakliye',
-      'Şehirler arası nakliye',
-      'Ticari malzeme taşımacılığı',
-      'Evden eve nakliyat',
-    ].map((name) => ({
+    name: 'Antalya şehir içi taşıma hizmetleri',
+    itemListElement: localServices.map(({ title, href }) => ({
       '@type': 'Offer',
-      itemOffered: { '@type': 'Service', name },
+      itemOffered: {
+        '@type': 'Service',
+        name: title,
+        url: `${siteUrl}${href}`,
+      },
     })),
   },
 };
 
-function QuoteForm() {
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [cargoType, setCargoType] = useState(cargoTypes[0]);
-  const [load, setLoad] = useState('');
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer },
+  })),
+};
+
+function QuoteForm({
+  service,
+  onServiceChange,
+}: {
+  service: QuoteService;
+  onServiceChange: (service: QuoteService) => void;
+}) {
+  const isSmallMove = service === 'Şehir içi parça eşya taşıma';
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
+    const fields = new FormData(event.currentTarget);
+    const field = (name: string) => String(fields.get(name) ?? '').trim();
     const message = [
-      'Merhaba Cantalya Nakliye & Lojistik, taşıma teklifi almak istiyorum.',
-      `Çıkış: ${origin}`,
-      `Varış: ${destination}`,
-      `Yük türü: ${cargoType}`,
-      `Yaklaşık miktar: ${load || 'Belirtilmedi'}`,
+      'Merhaba Cantalya Nakliye & Lojistik, Antalya şehir içi taşıma teklifi almak istiyorum.',
+      `Hizmet: ${service}`,
+      `Çıkış ilçesi / mahallesi: ${field('origin')}`,
+      `Varış ilçesi / mahallesi: ${field('destination')}`,
+      `${isSmallMove ? 'Taşınacak eşyalar' : 'Oda / eşya bilgisi'}: ${field('items')}`,
+      `Çıkış ve varış katları / asansör: ${field('access') || 'Görüşmede paylaşacağım'}`,
+      `Tercih edilen tarih: ${field('date') || 'Birlikte planlayalım'}`,
+      `Ek ihtiyaçlar: ${field('details') || 'Görüşmede netleştirelim'}`,
     ].join('\n');
-
     reportContactConversion('whatsapp');
     window.open(
       `https://wa.me/${phoneInternational}?text=${encodeURIComponent(message)}`,
@@ -154,77 +193,129 @@ function QuoteForm() {
 
   return (
     <form
+      id="teklif"
       onSubmit={handleSubmit}
-      className="quote-card"
+      className="quote-card scroll-mt-28"
       aria-labelledby="quote-title"
     >
-      <div className="flex items-start justify-between gap-5">
+      <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="eyebrow text-orange-300">Profesyonel hizmet • Uygun fiyat</p>
-          <h2 id="quote-title" className="mt-2 text-2xl font-semibold text-white">
-            Size uygun fiyat teklifini alın
+          <p className="eyebrow text-orange-300">
+            Ücretsiz keşif • Hızlı teklif
+          </p>
+          <h2
+            id="quote-title"
+            className="mt-2 text-2xl font-semibold text-white"
+          >
+            Neyi, nereye taşıyalım?
           </h2>
         </div>
         <span className="rounded-2xl bg-orange-500/15 p-3 text-orange-300">
-          <Route className="size-6" aria-hidden="true" />
+          <MessageCircle className="size-6" aria-hidden="true" />
         </span>
       </div>
-
-      <div className="mt-7 grid gap-4 sm:grid-cols-2">
-        <label className="field-label">
-          Çıkış noktası
-          <Input
-            required
-            value={origin}
-            onChange={(event) => setOrigin(event.target.value)}
-            placeholder="İstanbul / Kadıköy"
-            className="quote-input"
-          />
-        </label>
-        <label className="field-label">
-          Varış noktası
-          <Input
-            required
-            value={destination}
-            onChange={(event) => setDestination(event.target.value)}
-            placeholder="Antalya / Kepez"
-            className="quote-input"
-          />
-        </label>
-        <label className="field-label">
-          Yük türü
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <label className="field-label sm:col-span-2">
+          Hizmet seçin
           <select
-            value={cargoType}
-            onChange={(event) => setCargoType(event.target.value)}
-            className="quote-select"
+            name="service"
+            value={service}
+            onChange={(event) =>
+              onServiceChange(event.target.value as QuoteService)
+            }
+            className="quote-select pr-9"
           >
-            {cargoTypes.map((type) => (
-              <option key={type}>{type}</option>
-            ))}
+            <option>Evden eve nakliyat</option>
+            <option>Şehir içi parça eşya taşıma</option>
           </select>
         </label>
         <label className="field-label">
-          Yaklaşık miktar
+          Nereden? İlçe / mahalle
           <Input
-            value={load}
-            onChange={(event) => setLoad(event.target.value)}
-            placeholder="2 palet / 350 kg"
+            name="origin"
+            required
+            maxLength={120}
+            placeholder="Konyaaltı / Hurma"
+            className="quote-input"
+          />
+        </label>
+        <label className="field-label">
+          Nereye? İlçe / mahalle
+          <Input
+            name="destination"
+            required
+            maxLength={120}
+            placeholder="Muratpaşa / Fener"
+            className="quote-input"
+          />
+        </label>
+        <label className="field-label sm:col-span-2">
+          {isSmallMove
+            ? 'Hangi eşyalar taşınacak?'
+            : 'Oda sayısı / eşya miktarı'}
+          <Input
+            name="items"
+            required
+            maxLength={300}
+            placeholder={
+              isSmallMove
+                ? 'Örn. 1 koltuk ve 1 buzdolabı'
+                : 'Örn. 2+1 ev, tüm ev eşyası'
+            }
+            className="quote-input"
+          />
+        </label>
+        <label className="field-label sm:col-span-2">
+          Katlar ve asansör durumu{' '}
+          <span className="sr-only">(isteğe bağlı)</span>
+          <Input
+            name="access"
+            maxLength={200}
+            placeholder="Örn. 3. kattan 2. kata, bina asansörü var"
             className="quote-input"
           />
         </label>
       </div>
-
+      <details className="mt-4 text-sm text-slate-300">
+        <summary className="cursor-pointer rounded-lg py-1 font-medium underline decoration-white/25 underline-offset-4 focus-visible:outline-2 focus-visible:outline-orange-400">
+          Tarih veya ek ihtiyaç ekleyin (isteğe bağlı)
+        </summary>
+        <div className="mt-4 grid gap-4">
+          <label className="field-label">
+            Tercih ettiğiniz tarih
+            <Input
+              name="date"
+              type="date"
+              className="quote-input [color-scheme:dark]"
+            />
+          </label>
+          <label className="field-label">
+            Ek ihtiyaçlar
+            <Input
+              name="details"
+              maxLength={300}
+              placeholder="Ambalajlama, sökme-kurma, asansör veya keşif"
+              className="quote-input"
+            />
+          </label>
+        </div>
+      </details>
       <Button
         type="submit"
         size="lg"
-        className="mt-5 h-12 w-full rounded-xl bg-orange-500 px-5 text-base font-semibold text-white hover:bg-orange-400"
+        className="mt-5 h-12 w-full rounded-xl bg-orange-500 px-4 text-base font-semibold text-white hover:bg-orange-400"
       >
         <MessageCircle className="size-5" aria-hidden="true" />
-        WhatsApp’tan fiyat iste
+        WhatsApp’tan teklif iste
       </Button>
-      <p className="mt-3 text-center text-xs leading-5 text-slate-400">
-        Bilgileriniz yalnızca taşıma talebinizi yanıtlamak için kullanılır.{' '}
-        <a className="underline underline-offset-2 hover:text-white" href={withBasePath('/gizlilik')}>
+      <p className="mt-3 text-xs leading-5 text-slate-400">
+        WhatsApp’ta mesaj taslağı açılır; göndermeden önce düzenleyebilir, eşya
+        fotoğraflarınızı orada ekleyebilirsiniz. İlk teklif için açık adres
+        gerekmez.{' '}
+        <a
+          className="underline underline-offset-2 hover:text-white"
+          href={withBasePath('/gizlilik')}
+        >
           Gizlilik bilgisi
         </a>
       </p>
@@ -233,27 +324,45 @@ function QuoteForm() {
 }
 
 export default function Home() {
+  const [service, setService] = useState<QuoteService>('Evden eve nakliyat');
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('hizmet') === 'parca') {
+      setService('Şehir içi parça eşya taşıma');
+    }
+  }, []);
   return (
-    <main className="min-h-screen overflow-x-hidden bg-background text-foreground">
+    <main className="min-h-screen overflow-x-clip bg-background pb-24 text-foreground sm:pb-0">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#071826]/95 text-white backdrop-blur-xl">
-        <div className="site-shell flex h-20 items-center justify-between gap-6">
-          <a href="#top" className="flex items-center gap-3" aria-label="Cantalya ana sayfa">
+        <div className="site-shell flex h-20 items-center justify-between gap-4">
+          <a
+            href="#top"
+            className="flex items-center gap-3"
+            aria-label="Cantalya Nakliye & Lojistik ana sayfa"
+          >
             <span className="logo-mark" aria-hidden="true">
               C
             </span>
             <span>
-              <span className="block text-[15px] font-bold tracking-[0.12em]">CANTALYA</span>
+              <span className="block text-[15px] font-bold tracking-[0.12em]">
+                CANTALYA
+              </span>
               <span className="block text-[10px] font-semibold tracking-[0.18em] text-orange-300">
                 NAKLİYE&amp;LOJİSTİK
               </span>
             </span>
           </a>
-
-          <nav className="hidden items-center gap-7 text-sm text-slate-300 lg:flex" aria-label="Ana menü">
+          <nav
+            className="hidden items-center gap-6 text-sm text-slate-300 lg:flex"
+            aria-label="Ana menü"
+          >
             <a className="nav-link" href="#hizmetler">
               Hizmetler
             </a>
@@ -261,13 +370,12 @@ export default function Home() {
               Nasıl çalışır?
             </a>
             <a className="nav-link" href="#bolgeler">
-              Hizmet bölgesi
+              Hizmet bölgeleri
             </a>
             <a className="nav-link" href="#iletisim">
               İletişim
             </a>
           </nav>
-
           <a
             href={`tel:+${phoneInternational}`}
             className={cn(
@@ -281,137 +389,136 @@ export default function Home() {
           </a>
         </div>
       </header>
-
       <section id="top" className="hero-section scroll-mt-24">
-        <div className="site-shell grid items-center gap-12 py-16 lg:grid-cols-[1.04fr_.96fr] lg:py-24">
+        <div className="site-shell grid items-center gap-10 py-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-12 lg:py-20">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-300/25 bg-orange-400/10 px-4 py-2 text-sm font-medium text-orange-200">
-              <MapPin className="size-4" aria-hidden="true" />
-              Türkiye geneli taşıma • 81 ilde hizmet
+              <MapPin className="size-4 shrink-0" aria-hidden="true" />
+              Antalya’da ev ve parça eşya taşıma
             </div>
-            <h1 className="mt-7 max-w-3xl text-4xl font-bold leading-[1.08] tracking-[-0.045em] text-white sm:text-6xl">
-              Türkiye genelinde yükünüzü ve ev eşyanızı
-              <span className="text-orange-400">
-                {' '}
-                doğru araç ve profesyonel ekibimiz ile taşıyoruz.
-              </span>
+            <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-[1.1] tracking-[-0.045em] text-white sm:text-6xl">
+              Antalya Şehir İçi{' '}
+              <span className="text-orange-400">Evden Eve Nakliyat</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-              Paletli malzeme, ticari ürün, koli, parça eşya ve evden eve nakliyat için şehir içi
-              ve şehirler arası profesyonel, planlı ve uygun fiyatlı taşıma çözümleri.
+              Evinizin tamamını da, birkaç parça eşyanızı da profesyonel
+              ekibimizle taşıyoruz. Ücretsiz keşifle ihtiyacınızı belirleyelim,
+              kapsamı net ve uygun fiyatlı teklifinizi hazırlayalım.
             </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              {['Parsiyel yük', 'Paletli malzeme', 'Evden eve nakliyat'].map((item) => (
-                <span key={item} className="hero-pill">
-                  <CheckCircle2 className="size-4 text-orange-400" aria-hidden="true" />
-                  {item}
-                </span>
-              ))}
+            <p className="mt-4 text-sm leading-6 text-slate-400">
+              Konyaaltı · Muratpaşa · Kepez · Döşemealtı
+            </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {['Asansörlü taşıma', 'Ambalajlama', 'Mobilya sökme-kurma'].map(
+                (item) => (
+                  <span key={item} className="hero-pill">
+                    <CheckCircle2
+                      className="size-4 text-orange-400"
+                      aria-hidden="true"
+                    />
+                    {item}
+                  </span>
+                ),
+              )}
             </div>
-
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
               <a
-                href={`https://wa.me/${phoneInternational}?text=${encodeURIComponent('Merhaba, taşıma hizmeti için fiyat almak istiyorum.')}`}
-                target="_blank"
-                rel="noreferrer"
+                href="#teklif"
+                onClick={() => setService('Evden eve nakliyat')}
                 className={cn(
                   buttonVariants({ size: 'lg' }),
-                  'h-13 rounded-xl bg-orange-500 px-6 text-base font-semibold text-white hover:bg-orange-400',
+                  'h-13 rounded-xl bg-orange-500 px-5 text-base font-semibold text-white hover:bg-orange-400',
                 )}
               >
-                Uygun fiyat teklifi alın
-                <ArrowRight className="size-5" aria-hidden="true" />
+                <House className="size-5" aria-hidden="true" />
+                Evimi taşıtacağım
               </a>
               <a
-                href="#hizmetler"
+                href="#teklif"
+                onClick={() => setService('Şehir içi parça eşya taşıma')}
                 className={cn(
                   buttonVariants({ variant: 'outline', size: 'lg' }),
-                  'h-13 rounded-xl border-white/20 bg-white/5 px-6 text-base text-white hover:bg-white/10 hover:text-white',
+                  'h-13 rounded-xl border-white/25 bg-white/5 px-5 text-base text-white hover:bg-white/10 hover:text-white',
                 )}
               >
-                Taşıdığımız yükler
+                <Sofa className="size-5" aria-hidden="true" />
+                Parça eşya taşıtacağım
               </a>
             </div>
-
-            <div className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-white/10 pt-6">
-              <div>
-                <strong className="block text-xl text-white">Teklif</strong>
-                <span className="text-xs text-slate-400">Hızlı geri dönüş</span>
-              </div>
-              <div>
-                <strong className="block text-xl text-white">Planlama</strong>
-                <span className="text-xs text-slate-400">Yüke uygun araç</span>
-              </div>
-              <div>
-                <strong className="block text-xl text-white">Teslimat</strong>
-                <span className="text-xs text-slate-400">Tek muhatap</span>
-              </div>
-            </div>
-          </div>
-
-          <QuoteForm />
-        </div>
-      </section>
-
-      <section className="border-b border-slate-200 bg-white">
-        <div className="site-shell grid gap-6 py-6 text-sm font-medium text-slate-600 sm:grid-cols-3">
-          <div className="trust-item">
-            <ShieldCheck className="size-5 text-orange-600" aria-hidden="true" />
-            Profesyonel taşıma planı
-          </div>
-          <div className="trust-item">
-            <Clock3 className="size-5 text-orange-600" aria-hidden="true" />
-            Yükünüze uygun fiyat seçeneği
-          </div>
-          <div className="trust-item">
-            <Route className="size-5 text-orange-600" aria-hidden="true" />
-            Türkiye genelinde şehir içi ve şehirler arası
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-10 sm:py-14">
-        <div className="site-shell">
-          <figure className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[#071826] shadow-[0_24px_70px_rgb(15_23_42/12%)]">
-            <img
-              src={withBasePath('/hero.jpg')}
-              alt="Cantalya Nakliye & Lojistik için paletli yüklerin yanında bekleyen ticari taşıma kamyonu"
-              className="aspect-video w-full object-cover"
-            />
-          </figure>
-        </div>
-      </section>
-
-      <section id="hizmetler" className="scroll-mt-24 py-20 sm:py-28">
-        <div className="site-shell">
-          <div className="max-w-3xl">
-            <p className="eyebrow">Ne taşıyoruz?</p>
-            <h2 className="section-title">Bir tek koliniz bile olsa yükünüz yola çıkar.</h2>
-            <p className="section-copy">
-              Ev eşyasından paletli malzemeye; bireysel ve ticari yükleri Türkiye genelinde şehir
-              içi veya şehirler arası profesyonelce planlıyor, ihtiyacınıza uygun fiyat seçeneği
-              sunuyoruz.
+            <p className="mt-5 text-sm leading-6 text-slate-400">
+              Yerinde veya WhatsApp üzerinden keşif · İhtiyaca uygun araç ve
+              ekip
             </p>
           </div>
-
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => {
-              const Icon = service.icon;
+          <QuoteForm service={service} onServiceChange={setService} />
+        </div>
+      </section>
+      <section
+        className="border-b border-slate-200 bg-white"
+        aria-label="Taşıma hizmetlerimiz"
+      >
+        <div className="site-shell grid gap-5 py-7 text-sm font-medium text-slate-600 sm:grid-cols-3">
+          <div className="trust-item">
+            <House
+              className="size-5 shrink-0 text-orange-600"
+              aria-hidden="true"
+            />
+            Ücretsiz yerinde keşif
+          </div>
+          <div className="trust-item">
+            <PackageCheck
+              className="size-5 shrink-0 text-orange-600"
+              aria-hidden="true"
+            />
+            Ambalajlama ve sökme-kurma
+          </div>
+          <div className="trust-item">
+            <ShieldCheck
+              className="size-5 shrink-0 text-orange-600"
+              aria-hidden="true"
+            />
+            Poliçe kapsamında sigortalı taşıma
+          </div>
+        </div>
+      </section>
+      <section id="hizmetler" className="scroll-mt-24 py-16 sm:py-24">
+        <div className="site-shell">
+          <div className="max-w-3xl">
+            <p className="eyebrow">Taşınmanın büyüğü, küçüğü</p>
+            <h2 className="section-title">
+              Yeni evinize de, tek eşyanıza da aynı özen.
+            </h2>
+            <p className="section-copy">
+              Evden eve taşınmanızın tüm adımlarını birlikte planlayalım. Sadece
+              koltuk, beyaz eşya veya birkaç parça taşıtacaksanız tam ev taşıma
+              yerine ihtiyacınıza uygun küçük nakliye teklifi hazırlayalım.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {localServices.map((item) => {
+              const Icon = item.icon;
               return (
-                <a key={service.title} href={withBasePath(service.href)} className="service-card block">
+                <a
+                  key={item.href}
+                  href={withBasePath(item.href)}
+                  className="service-card flex flex-col"
+                >
                   <div className="flex items-center justify-between">
                     <span className="service-icon">
                       <Icon className="size-6" aria-hidden="true" />
                     </span>
-                    <span className="flex items-center gap-2 text-xs font-bold tracking-[0.12em] text-slate-300">
-                      0{index + 1}
-                      <ArrowUpRight className="size-4 text-orange-500" aria-hidden="true" />
-                    </span>
+                    <ArrowUpRight
+                      className="size-5 text-orange-500"
+                      aria-hidden="true"
+                    />
                   </div>
-                  <h3 className="mt-7 text-xl font-semibold text-slate-950">{service.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{service.description}</p>
-                  <span className="mt-5 inline-flex text-sm font-semibold text-orange-600">
+                  <h3 className="mt-6 text-xl font-semibold text-slate-950">
+                    {item.title}
+                  </h3>
+                  <p className="mb-5 mt-3 text-sm leading-6 text-slate-600">
+                    {item.description}
+                  </p>
+                  <span className="mt-auto inline-flex text-sm font-semibold text-orange-600">
                     Hizmeti inceleyin
                   </span>
                 </a>
@@ -420,126 +527,181 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <section id="nasil-calisir" className="scroll-mt-24 bg-[#0b2234] py-20 text-white sm:py-28">
-        <div className="site-shell grid gap-14 lg:grid-cols-[.8fr_1.2fr]">
+      <section
+        id="nasil-calisir"
+        className="scroll-mt-24 bg-[#0b2234] py-16 text-white sm:py-24"
+      >
+        <div className="site-shell grid gap-10 lg:grid-cols-[.85fr_1.15fr]">
           <div>
-            <p className="eyebrow text-orange-300">Basit süreç, net iletişim</p>
+            <p className="eyebrow text-orange-300">
+              Önce keşif, sonra net plan
+            </p>
             <h2 className="mt-4 text-3xl font-bold tracking-[-0.035em] sm:text-5xl">
-              Yük bilgisi sizden, doğru sevkiyat planı bizden.
+              Taşınma günü ne olacağını önceden konuşalım.
             </h2>
-            <p className="mt-5 max-w-xl leading-7 text-slate-300">
-              Çıkış ve varış noktasını, yükün ölçüsünü ve ağırlığını paylaşın. Uygun araç ve
-              güzergah planını profesyonelce hazırlayıp bütçenize uygun net teklif ile dönelim.
+            <p className="mt-5 leading-7 text-slate-300">
+              Eşya miktarını, katları ve ihtiyaç duyduğunuz hizmetleri
+              belirleyelim. Araç, ekip, ambalajlama, asansör ve sigorta
+              kapsamını teklif aşamasında netleştirelim.
             </p>
           </div>
-
           <ol className="grid gap-4">
             {[
-              ['01', 'Yük bilgisini paylaşın', 'Nereden nereye, kaç parça veya palet ve yaklaşık ağırlık.'],
-              ['02', 'Sevkiyatı planlayalım', 'Yükünüze ve güzergaha uygun taşıma seçeneğini belirleyelim.'],
-              ['03', 'Yükünüzü teslim edelim', 'Belirlenen zamanda alım yapalım ve varış noktasına ulaştıralım.'],
+              [
+                '01',
+                'Eşyanızı ve iki konumu paylaşın',
+                'İlçe, mahalle, kat ve eşya fotoğraflarıyla başlayalım. Ev taşımanız için ücretsiz yerinde keşif de yapalım.',
+              ],
+              [
+                '02',
+                'Hizmet kapsamını ve fiyatı netleştirelim',
+                'Ambalajlama, sökme-kurma, asansör ihtiyacı, poliçe koşulları ve taşıma tarihini teklifinizde belirleyelim.',
+              ],
+              [
+                '03',
+                'Kararlaştırılan plana göre taşıyalım',
+                'Alım ve teslimatı konuştuğumuz gün ve koşullarda gerçekleştirelim; süreç boyunca doğrudan iletişimde kalalım.',
+              ],
             ].map(([number, title, description]) => (
               <li key={number} className="process-row">
-                <span className="text-sm font-bold text-orange-300">{number}</span>
+                <span className="text-sm font-bold text-orange-300">
+                  {number}
+                </span>
                 <div>
                   <h3 className="text-lg font-semibold">{title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-slate-400">{description}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">
+                    {description}
+                  </p>
                 </div>
               </li>
             ))}
           </ol>
         </div>
       </section>
-
-      <section id="bolgeler" className="scroll-mt-24 py-20 sm:py-28">
+      <section id="bolgeler" className="scroll-mt-24 py-16 sm:py-24">
         <div className="site-shell">
-          <div className="route-panel">
-            <div className="relative z-10 max-w-2xl">
-              <p className="eyebrow">Türkiye geneli taşıma ağı</p>
-              <h2 className="section-title">Türkiye’nin 81 ilinde taşıma hizmeti.</h2>
-              <p className="section-copy">
-                Çıkış ve varış ili fark etmeksizin parça yük, paletli malzeme, ticari sevkiyat ve
-                evden eve nakliyat taleplerini Türkiye genelinde değerlendiriyoruz.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-2">
-                {[
-                  'Türkiye geneli',
-                  '81 ilde hizmet',
-                  'Şehir içi',
-                  'Şehirler arası',
-                  'Parça eşya',
-                  'Paletli yük',
-                  'Evden eve',
-                ].map(
-                  (serviceArea) => (
-                    <span key={serviceArea} className="route-chip">
-                      {serviceArea}
-                    </span>
-                  ),
-                )}
-              </div>
-            </div>
-            <div className="route-orbit" aria-hidden="true">
-              <MapPin className="size-9" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-slate-200 bg-white py-20 sm:py-28">
-        <div className="site-shell grid gap-12 lg:grid-cols-[.72fr_1.28fr]">
-          <div>
-            <p className="eyebrow">Sık sorulanlar</p>
-            <h2 className="section-title">Göndermeden önce bilmek istedikleriniz.</h2>
-            <p className="section-copy">
-              Yükünüz farklıysa fotoğraf, ölçü ve yaklaşık ağırlığı WhatsApp’tan paylaşmanız yeterli.
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              [
-                'Parça eşya taşıma nedir?',
-                'Aracın tamamını doldurmayan yüklerin uygun güzergah ve araç planıyla şehirler arasında taşınmasıdır.',
-              ],
-              [
-                'Paletli malzeme kabul ediyor musunuz?',
-                'Evet. Palet sayısı, ölçüler, yaklaşık ağırlık ve yükleme koşullarına göre uygun taşıma planı oluşturulur.',
-              ],
-              [
-                'Hangi illere taşıma yapıyorsunuz?',
-                'Çıkış ve varış ili fark etmeksizin Türkiye’nin 81 ilindeki taşıma taleplerini değerlendiriyoruz.',
-              ],
-              [
-                'Evden eve nakliyat yapıyor musunuz?',
-                'Evet. Ev ve ofis eşyaları için şehir içi ve şehirler arası nakliyat hizmeti sunuyoruz.',
-              ],
-              [
-                'Nakliye fiyatı nasıl belirlenir?',
-                'Çıkış-varış noktası, yük türü, hacim, ağırlık, kat ve yükleme koşulları birlikte değerlendirilir.',
-              ],
-            ].map(([question, answer]) => (
-              <article key={question} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-                <h3 className="font-semibold text-slate-950">{question}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">{answer}</p>
+          <p className="eyebrow">Antalya şehir içi hizmet bölgeleri</p>
+          <h2 className="section-title">
+            Dört ilçede, evden eve ve parça eşya taşıma.
+          </h2>
+          <p className="section-copy">
+            Aynı mahalledeki kısa bir taşıma da, ilçeler arasındaki ev
+            değişikliği de olabilir. Nereden nereye taşınacağınızı söyleyin;
+            bina ve eşya koşullarına göre planlayalım.
+          </p>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2">
+            {districts.map((district) => (
+              <article
+                id={district.id}
+                key={district.id}
+                className="scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-6"
+              >
+                <MapPin className="size-5 text-orange-600" aria-hidden="true" />
+                <h3 className="mt-3 text-xl font-semibold">
+                  {district.name} evden eve nakliyat
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {district.description}
+                </p>
+                <a
+                  href="#teklif"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-orange-700"
+                >
+                  Taşıma için teklif alın
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </a>
               </article>
             ))}
           </div>
         </div>
       </section>
-
-      <section id="iletisim" className="scroll-mt-24 py-20 sm:py-28">
+      <section className="border-y border-slate-200 bg-white py-16 sm:py-24">
+        <div className="site-shell grid gap-10 lg:grid-cols-[.65fr_1.35fr]">
+          <div>
+            <p className="eyebrow">Sık sorulanlar</p>
+            <h2 className="section-title">
+              Taşınmadan önce bilmek istedikleriniz.
+            </h2>
+            <p className="section-copy">
+              Fiyat ve hizmet kapsamı eşyanıza ve taşıma koşullarına göre
+              belirlenir. Kendi taşınmanız için bizi arayabilirsiniz.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            {faqs.map(({ question, answer }) => (
+              <details
+                key={question}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
+              >
+                <summary className="cursor-pointer font-semibold leading-6 text-slate-950 focus-visible:outline-2 focus-visible:outline-orange-500">
+                  {question}
+                </summary>
+                <p className="mt-3 text-sm leading-7 text-slate-600">
+                  {answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id="diger-hizmetler" className="py-12 sm:py-16">
+        <div className="site-shell grid gap-7 md:grid-cols-[1fr_240px] md:items-center">
+          <div>
+            <p className="eyebrow">Diğer nakliye ve lojistik hizmetleri</p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight">
+              Şehirler arası ve ticari taşıma da devam ediyor.
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+              Türkiye geneli parça eşya, ambar, parsiyel ve paletli yük
+              talepleriniz için ilgili hizmet sayfasından bilgi alabilirsiniz.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
+              {otherServices.map(([title, href]) => (
+                <a
+                  key={href}
+                  href={withBasePath(href)}
+                  className="inline-flex items-center gap-1 text-sm font-medium text-slate-700 underline decoration-slate-300 underline-offset-4 hover:text-orange-700"
+                >
+                  {title}
+                  <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          </div>
+          <figure className="overflow-hidden rounded-2xl border border-slate-200 bg-[#071826]">
+            <img
+              src={withBasePath('/hero.jpg')}
+              alt="Cantalya Nakliye & Lojistik taşıma hizmetlerini temsil eden kamyon görseli"
+              width={480}
+              height={270}
+              loading="lazy"
+              className="aspect-video w-full object-cover"
+            />
+            <figcaption className="px-3 py-2 text-xs text-slate-400">
+              Lojistik hizmetlerimizi temsil eden görsel.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section id="iletisim" className="scroll-mt-24 pb-16 sm:pb-24">
         <div className="site-shell">
           <div className="contact-panel">
             <div>
-              <p className="eyebrow text-orange-200">Yükünüz hazır mı?</p>
-              <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-[-0.035em] text-white sm:text-5xl">
-                Profesyonel taşıma, uygun fiyat: çıkış ve varış noktasını gönderin.
+              <p className="eyebrow text-orange-100">
+                Eviniz ya da birkaç parça eşyanız
+              </p>
+              <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-[-0.035em] text-white sm:text-4xl">
+                Neyi, nereden nereye taşıtmak istiyorsunuz?
               </h2>
+              <p className="mt-4 max-w-2xl leading-7 text-orange-50">
+                Antalya şehir içi taşımanız için fotoğraf gönderin veya ücretsiz
+                keşif isteyin. İhtiyacınıza uygun teklifi birlikte
+                netleştirelim.
+              </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <a
-                href={`https://wa.me/${phoneInternational}?text=${encodeURIComponent('Merhaba, parça yük / paletli malzeme / evden eve taşıma için bilgi almak istiyorum.')}`}
+                href={`https://wa.me/${phoneInternational}?text=${encodeURIComponent('Merhaba Cantalya Nakliye & Lojistik, Antalya şehir içi evden eve veya parça eşya taşıma için teklif almak istiyorum.')}`}
                 target="_blank"
                 rel="noreferrer"
                 className={cn(
@@ -554,7 +716,7 @@ export default function Home() {
                 href={`tel:+${phoneInternational}`}
                 className={cn(
                   buttonVariants({ variant: 'outline', size: 'lg' }),
-                  'h-13 rounded-xl border-white/25 bg-transparent px-6 text-base text-white hover:bg-white/10 hover:text-white',
+                  'h-13 rounded-xl border-white/30 bg-transparent px-6 text-base text-white hover:bg-white/10 hover:text-white',
                 )}
               >
                 <Phone className="size-5" aria-hidden="true" />
@@ -564,30 +726,43 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <footer className="border-t border-slate-200 bg-white py-10">
-        <div className="site-shell flex flex-col justify-between gap-6 text-sm text-slate-500 sm:flex-row sm:items-center">
+      <footer className="border-t border-slate-200 bg-white py-9">
+        <div className="site-shell flex flex-col justify-between gap-5 text-sm text-slate-500 lg:flex-row lg:items-center">
           <div>
-            <strong className="block text-base text-slate-900">Cantalya Nakliye &amp; Lojistik</strong>
-            <span>Parça yük, paletli malzeme, parsiyel taşıma ve evden eve nakliyat</span>
+            <strong className="block text-base text-slate-900">
+              Cantalya Nakliye &amp; Lojistik
+            </strong>
+            <p className="mt-1">
+              Antalya evden eve nakliyat ve şehir içi parça eşya taşıma
+            </p>
           </div>
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <a className="hover:text-orange-600" href={`tel:+${phoneInternational}`}>
+          <div className="flex flex-wrap gap-x-5 gap-y-3">
+            <a
+              className="hover:text-orange-700"
+              href={`tel:+${phoneInternational}`}
+            >
               {phoneDisplay}
             </a>
-            <a className="hover:text-orange-600" href={withBasePath('/ambar-nakliye')}>
-              Ambar nakliye
+            <a className="hover:text-orange-700" href="#diger-hizmetler">
+              Diğer hizmetler
             </a>
-            <a className="hover:text-orange-600" href={withBasePath('/sehirler-arasi-nakliye')}>
-              Şehirler arası nakliye
-            </a>
-            <a className="hover:text-orange-600" href={withBasePath('/gizlilik')}>
+            <a
+              className="hover:text-orange-700"
+              href={withBasePath('/gizlilik')}
+            >
               Gizlilik
             </a>
-            <span>Türkiye geneli hizmet • 81 ilde taşıma</span>
           </div>
         </div>
       </footer>
+      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-3 border-t border-slate-200 bg-white/95 px-4 pt-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-[0_-6px_24px_rgb(0_0_0/8%)] backdrop-blur sm:hidden">
+        <a href={`tel:+${phoneInternational}`} className={cn(buttonVariants({ size: 'lg' }), 'h-12 rounded-xl bg-slate-950 text-white hover:bg-slate-800')}>
+          <Phone className="size-4" aria-hidden="true" /> Hemen ara
+        </a>
+        <a href="#teklif" className={cn(buttonVariants({ size: 'lg' }), 'h-12 rounded-xl bg-orange-600 text-white hover:bg-orange-500')}>
+          <MessageCircle className="size-4" aria-hidden="true" /> Teklif al
+        </a>
+      </div>
     </main>
   );
 }

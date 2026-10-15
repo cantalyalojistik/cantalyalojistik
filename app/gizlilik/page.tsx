@@ -65,9 +65,9 @@ export default function PrivacyPage() {
       <section className="py-16 sm:py-24">
         <div className="site-shell grid max-w-4xl gap-5">
           {[
-            ['Hangi bilgiler paylaşılır?', 'Web sitemiz doğrudan veri kaydetmez. WhatsApp veya telefon üzerinden kendi isteğinizle çıkış-varış noktası, yük türü, ölçü, fotoğraf ve iletişim bilgisi paylaşabilirsiniz.'],
+            ['Hangi bilgiler paylaşılır?', 'Teklif formu, yazdığınız bilgilerle bir WhatsApp mesaj taslağı açar; mesajı siz göndermeden işletmemize iletilmez. WhatsApp veya telefon üzerinden kendi isteğinizle çıkış-varış noktası, eşya bilgisi, kat, tarih, fotoğraf ve iletişim bilgisi paylaşabilirsiniz.'],
             ['Bilgiler neden kullanılır?', 'Paylaştığınız bilgiler taşıma ihtiyacını değerlendirmek, fiyat ve araç planı oluşturmak ve talebinize dönüş yapmak amacıyla kullanılır.'],
-            ['Üçüncü taraf hizmetler', 'WhatsApp üzerinden yaptığınız görüşmeler Meta’nın, telefon görüşmeleri ise kullandığınız operatörün şartlarına tabidir. Google ölçüm ve reklam araçları kullanıldığında bu sayfa güncellenir.'],
+            ['Üçüncü taraf hizmetler', 'WhatsApp üzerinden yaptığınız görüşmeler Meta’nın, telefon görüşmeleri ise kullandığınız operatörün şartlarına tabidir. Sitede Google Ads etiketiyle telefon ve WhatsApp bağlantılarına tıklamalar ölçülür. Bu tıklamalar, tamamlanmış görüşme veya alınmış iş anlamına gelmez. Teklif formuna yazdığınız eşya, konum ve tarih bilgileri reklam ölçüm olaylarına eklenmez. Google reklam ölçümü kapsamında çerezler ve benzeri teknolojiler kullanılabilir; aynı oturumdaki tekrarları ayırmak için tarayıcının oturum depolaması kullanılır.'],
             ['İletişim', `Gizlilik konusunda bilgi almak için ${phoneDisplay} numarasından Cantalya Nakliye & Lojistik’e ulaşabilirsiniz.`],
           ].map(([title, copy]) => (
             <article key={title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_16px_36px_rgb(15_23_42/5%)] sm:p-8">

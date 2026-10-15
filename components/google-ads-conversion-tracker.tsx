@@ -25,12 +25,15 @@ function getGtag() {
 
 export function reportContactConversion(method: 'phone' | 'whatsapp') {
   if (typeof window === 'undefined') return;
+  // Local previews must not create real advertising conversions.
+  if (!['cantalyalojistik.com', 'www.cantalyalojistik.com'].includes(window.location.hostname)) return;
 
   const gtag = getGtag();
 
   gtag('event', `${method}_click`, {
     event_category: 'contact',
     contact_method: method,
+    page_path: window.location.pathname,
   });
 
   try {

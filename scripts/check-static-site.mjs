@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+const root = 'dist/client';
+const origin = 'https://cantalyalojistik.com';
+const previousRoutes = ['/', '/ambar-nakliye', '/antalya-nakliye', '/evden-eve-nakliyat', '/gizlilik', '/paletli-yuk-tasima', '/parca-esya-tasima', '/parsiyel-nakliye', '/sehirler-arasi-nakliye', '/ticari-yuk-tasima'];
+const newRoutes = ['/antalya-parca-esya-tasima', '/asansorlu-evden-eve-nakliyat'];
+const routeFile = (pathname) => join(root, pathname === '/' ? 'index.html' : `${pathname.replace(/^\//, '').replace(/\/$/, '')}.html`);
+const sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
+for (const path of [...previousRoutes, ...newRoutes]) {
+  assert(existsSync(routeFile(path)), `Missing route ${path}`);
+  assert(sitemap.includes(`${origin}${path}`), `Missing sitemap entry ${path}`);
+}
+let linkCount = 0;
+for (const file of readdirSync(root).filter((file) => file.endsWith('.html') && file !== '404.html')) {
+  const html = readFileSync(join(root, file), 'utf8');
+  const route = file === 'index.html' ? '/' : `/${file.slice(0, -5)}`;
+  assert.equal((html.match(/<h1\b/g) || []).length, 1, `H1 count ${route}`);
+  assert(html.includes('name="description"'), `Missing description ${route}`);
+  assert(html.includes(`rel="canonical" href="${origin}${route === '/' ? '/' : route}"`) || html.includes(`rel="canonical" href="${origin}${route === '/' ? '' : route}"`), `Wrong canonical ${route}`);
+  assert(!html.includes('instagram.com/cantalyanakliyat'), `Wrong brand association ${route}`);
+  for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(match[1]);
+  for (const [, href] of html.matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
+    const url = new URL(href.replaceAll('&amp;', '&'), `${origin}${route}`);
+    if (url.origin !== origin) continue;
+    const destination = routeFile(url.pathname);
+    assert(existsSync(destination), `Broken link ${route} -> ${url.pathname}`);
+    if (url.hash) {
+      const target = readFileSync(destination, 'utf8');
+      assert(target.includes(`id="${url.hash.slice(1)}"`), `Missing anchor ${href}`);
+    }
+    linkCount++;
+  }
+}
+console.log(`PASS: ${previousRoutes.length} existing + ${newRoutes.length} new pages; ${linkCount} internal links; H1, metadata, JSON-LD and sitemap checks.`);
