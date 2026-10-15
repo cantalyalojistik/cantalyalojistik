@@ -11,15 +11,19 @@ const phoneInternational = '905415413289';
 
 export function ServiceDetail({ service }: { service: ServicePage }) {
   const pageUrl = `${siteUrl}/${service.slug}`;
+  const offersIntercity = service.slug === 'evden-eve-nakliyat' || !service.localDistricts;
   const structuredData = [
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
       name: service.metaTitle.split('|')[0].trim(),
       description: service.description,
-      areaServed: service.localDistricts
-        ? service.localDistricts.map((district) => ({ '@type': 'AdministrativeArea', name: `${district}, Antalya` }))
-        : { '@type': 'Country', name: 'Türkiye' },
+      areaServed: offersIntercity
+        ? { '@type': 'Country', name: 'Türkiye' }
+        : [
+            { '@type': 'AdministrativeArea', name: 'Antalya' },
+            ...service.localDistricts!.map((district) => ({ '@type': 'AdministrativeArea', name: `${district}, Antalya` })),
+          ],
       provider: {
         '@type': 'LocalBusiness',
         name: 'Cantalya Nakliye & Lojistik',
@@ -116,7 +120,7 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
 
       <section className="border-b border-slate-200 bg-white">
         <div className="site-shell grid gap-6 py-6 text-sm font-medium text-slate-600 sm:grid-cols-3">
-          <div className="trust-item"><MapPin className="size-5 text-orange-600" aria-hidden="true" />{service.localDistricts ? 'Antalya şehir içi hizmet' : 'Türkiye geneli hizmet'}</div>
+          <div className="trust-item"><MapPin className="size-5 text-orange-600" aria-hidden="true" />{offersIntercity ? 'Şehir içi ve şehirler arası hizmet' : 'Antalya geneli hizmet'}</div>
           <div className="trust-item"><Route className="size-5 text-orange-600" aria-hidden="true" />{service.localDistricts ? 'İhtiyaca göre araç ve ekip' : 'Profesyonel rota planı'}</div>
           <div className="trust-item"><CheckCircle2 className="size-5 text-orange-600" aria-hidden="true" />İhtiyaca uygun fiyat</div>
         </div>
@@ -165,10 +169,10 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
           <div className="site-shell grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
             <div>
               <p className="eyebrow">Antalya hizmet bölgesi</p>
-              <h2 className="section-title">Aynı ilçede veya ilçeler arasında taşıma.</h2>
-              <p className="section-copy">Konyaaltı, Muratpaşa, Kepez ve Döşemealtı’nda alınacak ve bırakılacak adresleri birlikte değerlendiriyoruz. İki binanın katları, araç yanaşma alanı ve eşya miktarı teklifin temelini oluşturur.</p>
+              <h2 className="section-title">{offersIntercity ? 'Şehir içi ve şehirler arası ev taşıma.' : 'Antalya genelinde, ilçeler arası taşıma.'}</h2>
+              <p className="section-copy">Konyaaltı, Muratpaşa, Kepez, Döşemealtı, Aksu ve Serik dahil alım ve varış adreslerini birlikte değerlendiriyoruz. Hizmetimiz bu ilçelerle sınırlı değil. İki binanın katları, araç yanaşma alanı ve eşya miktarı teklifin temelini oluşturur.</p>
             </div>
-            <ul className="grid grid-cols-2 gap-3" aria-label="Hizmet verilen Antalya ilçeleri">
+            <ul className="grid grid-cols-2 gap-3" aria-label="Hizmet verilen Antalya ilçelerinden bazıları">
               {service.localDistricts.map((district) => (
                 <li key={district} className="flex items-center gap-2 rounded-2xl border border-orange-200 bg-white px-3 py-5 text-sm font-semibold text-slate-900 sm:px-4 sm:text-base">
                   <MapPin className="size-4 shrink-0 text-orange-600" aria-hidden="true" />{district}
@@ -228,7 +232,7 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
 
       <footer className={cn('border-t border-slate-200 bg-white py-10', service.localDistricts && 'pb-28 sm:pb-10')}>
         <div className="site-shell flex flex-col justify-between gap-5 text-sm text-slate-500 sm:flex-row sm:items-center">
-          <div><strong className="block text-base text-slate-900">Cantalya Nakliye &amp; Lojistik</strong><span>{service.localDistricts ? 'Antalya evden eve ve şehir içi parça eşya taşıma' : 'Türkiye geneli nakliye ve taşımacılık'}</span></div>
+          <div><strong className="block text-base text-slate-900">Cantalya Nakliye &amp; Lojistik</strong><span>{offersIntercity ? 'Şehir içi ve şehirler arası nakliye ve taşımacılık' : 'Antalya genelinde ev ve parça eşya taşıma'}</span></div>
           <div className="flex flex-wrap gap-x-6 gap-y-2"><a className="hover:text-orange-600" href={`tel:+${phoneInternational}`}>{phoneDisplay}</a><a className="hover:text-orange-600" href={withBasePath('/#hizmetler')}>Tüm hizmetler</a><a className="hover:text-orange-600" href={withBasePath('/gizlilik')}>Gizlilik</a></div>
         </div>
       </footer>

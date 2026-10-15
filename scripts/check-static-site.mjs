@@ -29,6 +29,14 @@ for (const path of [...previousRoutes, ...newRoutes]) {
   assert(sitemapUrls.includes(`${origin}${path}`), `Missing exact sitemap entry ${path}`);
 }
 let linkCount = 0;
+const homeHtml = readFileSync(routeFile('/'), 'utf8');
+assert(homeHtml.includes('Antalya Şehir İçi ve Şehirler Arası'), 'Homepage must include intercity home moving');
+assert(homeHtml.includes('Profesyonel Evden Eve Nakliyat'), 'Homepage must include professional home moving');
+for (const path of ['/', '/evden-eve-nakliyat', '/antalya-parca-esya-tasima', '/asansorlu-evden-eve-nakliyat']) {
+  const html = readFileSync(routeFile(path), 'utf8');
+  assert(html.includes('Aksu') && html.includes('Serik'), `Missing Antalya service examples ${path}`);
+  assert(!/dört ilçede/i.test(html), `Outdated four-district restriction ${path}`);
+}
 for (const file of readdirSync(root).filter((file) => file.endsWith('.html') && file !== '404.html')) {
   const html = readFileSync(join(root, file), 'utf8');
   const route = file === 'index.html' ? '/' : `/${file.slice(0, -5)}`;

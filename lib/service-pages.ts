@@ -23,7 +23,7 @@ export type ServicePage = {
   whatsAppMessage?: string;
 };
 
-const antalyaDistricts = ['Konyaaltı', 'Muratpaşa', 'Kepez', 'Döşemealtı'];
+const antalyaDistricts = ['Konyaaltı', 'Muratpaşa', 'Kepez', 'Döşemealtı', 'Aksu', 'Serik'];
 
 export const servicePages: Record<string, ServicePage> = {
   'parca-esya-tasima': {
@@ -182,20 +182,20 @@ export const servicePages: Record<string, ServicePage> = {
   },
   'evden-eve-nakliyat': {
     slug: 'evden-eve-nakliyat',
-    eyebrow: 'Antalya şehir içi ev taşıma',
-    title: 'Antalya Evden Eve Nakliyat',
+    eyebrow: 'Antalya şehir içi ve şehirler arası ev taşıma',
+    title: 'Antalya Şehir İçi ve Şehirler Arası Profesyonel Evden Eve Nakliyat',
     metaTitle: 'Antalya Evden Eve Nakliyat | Cantalya Nakliye & Lojistik',
     description:
-      'Antalya evden eve nakliyat: ücretsiz keşif, asansörlü taşıma, ambalajlama ve mobilya sökme-kurma. Konyaaltı, Muratpaşa, Kepez ve Döşemealtı için teklif alın.',
+      'Antalya şehir içi ve şehirler arası profesyonel evden eve nakliyat. Ücretsiz keşif, asansörlü taşıma, ambalajlama ve mobilya sökme-kurma için teklif alın.',
     lead:
-      'Konyaaltı, Muratpaşa, Kepez ve Döşemealtı’nda evinizi doğru araç ve profesyonel ekibimizle taşıyoruz. Ücretsiz yerinde keşif veya WhatsApp üzerinden eşya değerlendirmesiyle ambalajlama, mobilya sökme-kurma ve asansör ihtiyacını baştan planlıyoruz.',
+      'Evinizi Antalya içinde veya Türkiye genelinde şehirler arasında doğru araç ve profesyonel ekibimizle taşıyoruz. Konyaaltı, Muratpaşa, Kepez, Döşemealtı, Aksu ve Serik dahil alım ve varış adreslerinize göre ücretsiz keşif, ambalajlama, mobilya sökme-kurma ve asansör ihtiyacını baştan planlıyoruz.',
     highlights: ['Ücretsiz keşif', 'Ambalajlama ve mobilya montajı', 'Asansörlü taşıma seçeneği'],
-    idealFor: ['Antalya şehir içi ev taşıma', 'Daire ve müstakil ev taşımaları', 'Bina ve site içi taşınma', 'Ambalajlı ev eşyası taşıma', 'Mobilya sökme ve kurma', 'Az eşyalı veya komple ev taşımaları'],
+    idealFor: ['Şehir içi ve şehirler arası ev taşıma', 'Daire ve müstakil ev taşımaları', 'Bina ve site içi taşınma', 'Ambalajlı ev eşyası taşıma', 'Mobilya sökme ve kurma', 'Az eşyalı veya komple ev taşımaları'],
     localDistricts: antalyaDistricts,
     quoteIntro: 'Taşınma tarihinizi, iki konumu, oda sayısını ve katları paylaşın. Ücretsiz yerinde keşif veya WhatsApp’tan fotoğraflarla teklif kapsamını netleştirelim.',
     quoteTitle: 'Evinizi taşımadan önce ücretsiz keşif ve net teklif alın.',
     quoteLabel: 'Ücretsiz keşif isteyin',
-    whatsAppMessage: 'Merhaba Cantalya Nakliye & Lojistik, Antalya şehir içi evden eve nakliyat için ücretsiz keşif ve fiyat teklifi almak istiyorum.',
+    whatsAppMessage: 'Merhaba Cantalya Nakliye & Lojistik, evden eve nakliyat için ücretsiz keşif ve fiyat teklifi almak istiyorum. Çıkış-varış il ve ilçelerini, eşya bilgilerini ve tarihi paylaşabilirim.',
     details: {
       heading: 'Ev taşıma teklifinde neleri birlikte netleştiriyoruz?',
       intro: 'Taşıma planı yalnızca araçtan ibaret değil. Eşyanın hazırlanmasından yeni evde yerleşimine kadar ihtiyaç duyduğunuz hizmetleri teklif sırasında ayrı ayrı konuşuyoruz.',
@@ -219,11 +219,11 @@ export const servicePages: Record<string, ServicePage> = {
     faqs: [
       { question: 'Antalya evden eve nakliyat fiyatları nasıl belirlenir?', answer: 'Oda sayısının yanında eşya hacmi, iki adres arasındaki mesafe, katlar, bina erişimi, taşıma tarihi ve ambalajlama, montaj veya asansör ihtiyacı fiyatı etkiler. Keşif sonrası kapsamı net bir teklif sunarız; herkese aynı sabit fiyat uygulanmaz.' },
       { question: 'Ücretsiz keşif için eve geliyor musunuz?', answer: 'Evet, yerinde ücretsiz keşif yapıyoruz. İsterseniz WhatsApp’tan fotoğraf veya görüntü paylaşarak da ilk değerlendirmeyi alabilirsiniz. Randevu ve gerekebilecek ek inceleme birlikte planlanır.' },
-      { question: 'Hangi Antalya ilçelerinde ev taşıyorsunuz?', answer: 'Bu hizmet için Konyaaltı, Muratpaşa, Kepez ve Döşemealtı’ndaki şehir içi taşınmalara odaklanıyoruz. Bu ilçeler arasındaki ev taşımaları için de teklif alabilirsiniz.' },
+      { question: 'Hangi Antalya ilçelerinde ev taşıyorsunuz?', answer: 'Konyaaltı, Muratpaşa, Kepez, Döşemealtı, Aksu ve Serik dahil Antalya genelinde hizmet sunuyoruz. Hizmetimiz bu ilçelerle sınırlı değil; alım ve varış adreslerinize göre taşıma planı ve teklif hazırlıyoruz.' },
       { question: 'Ambalajlama ve mobilya sökme-kurma dahil mi?', answer: 'Bu hizmetleri sunuyoruz. Hangi eşyaların ambalajlanacağı ve hangi mobilyaların sökülüp kurulacağı keşifte belirlenir; teklifin kapsamı taşıma öncesinde açıkça paylaşılır.' },
       { question: 'Taşıma sigortası her hasarı karşılar mı?', answer: 'Sigortalı taşıma hizmetimiz var; ancak teminatlar, limitler ve istisnalar poliçeye bağlıdır. Eşyanıza uygun kapsamı taşıma öncesinde birlikte kontrol edip netleştiririz.' },
       { question: 'Yalnızca birkaç parça eşya taşıtabilir miyim?', answer: 'Evet. Koltuk, beyaz eşya, yatak veya birkaç parça mobilya için Antalya şehir içi parça eşya hizmetimizi kullanabilirsiniz; komple ev taşıtmanız gerekmez.' },
-      { question: 'Şehirler arası ev taşıma hizmeti devam ediyor mu?', answer: 'Evet. Şehirler arası ev eşyası taleplerini de güzergâh ve araç uygunluğuna göre değerlendiriyoruz. Bu sayfanın odağı Antalya şehir içi taşınmadır; şehirler arası talepler için çıkış ve varış illerini paylaşabilirsiniz.' },
+      { question: 'Şehirler arası ev taşıma hizmeti devam ediyor mu?', answer: 'Evet. Antalya şehir içi taşımaların yanında Türkiye genelinde şehirler arası profesyonel evden eve nakliyat hizmeti sunuyoruz. Çıkış ve varış illerini, tarihi ve eşya miktarını paylaşın; araç, ekip ve taşıma kapsamını birlikte netleştirelim.' },
     ],
   },
   'antalya-parca-esya-tasima': {
@@ -232,9 +232,9 @@ export const servicePages: Record<string, ServicePage> = {
     title: 'Antalya Şehir İçi Parça Eşya Taşıma',
     metaTitle: 'Antalya Parça Eşya Taşıma ve Küçük Nakliye | Cantalya',
     description:
-      'Antalya şehir içi parça eşya taşıma: koltuk, buzdolabı, beyaz eşya ve az eşya nakliyesi. Konyaaltı, Muratpaşa, Kepez ve Döşemealtı için teklif alın.',
+      'Antalya genelinde parça eşya taşıma: koltuk, buzdolabı, beyaz eşya ve küçük nakliye. Aksu, Serik ve diğer Antalya ilçeleri için hızlı teklif alın.',
     lead:
-      'Komple bir ev taşınmasa da nakliyeye ihtiyaç olur. İki parça mobilya, yeni aldığınız koltuk veya başka bir adrese gidecek beyaz eşyanız için Konyaaltı, Muratpaşa, Kepez ve Döşemealtı’nda eşyanıza uygun araç ve ekip planlıyoruz.',
+      'Komple bir ev taşınmasa da nakliyeye ihtiyaç olur. İki parça mobilya, yeni aldığınız koltuk veya başka bir adrese gidecek beyaz eşyanız için Konyaaltı, Muratpaşa, Kepez, Döşemealtı, Aksu ve Serik dahil Antalya genelinde eşyanıza uygun araç ve ekip planlıyoruz.',
     highlights: ['Tek veya birkaç parça eşya', 'Eşyaya uygun araç ve ekip', 'Fotoğrafla hızlı teklif'],
     idealFor: ['Koltuk ve koltuk takımı taşıma', 'Buzdolabı ve çamaşır makinesi', 'Yatak, baza ve gardırop', 'İkinci el mobilya teslimatı', 'Öğrenci ve az eşyalı ev taşımaları', 'Mağazadan veya başka evden eşya alımı'],
     localDistricts: antalyaDistricts,
@@ -280,7 +280,7 @@ export const servicePages: Record<string, ServicePage> = {
     description:
       'Antalya asansörlü evden eve nakliyat. Ücretsiz keşifle bina erişimini ve asansör ihtiyacını değerlendirin; ambalajlı ev taşıma için teklif alın.',
     lead:
-      'Konyaaltı, Muratpaşa, Kepez ve Döşemealtı’nda ev eşyalarınızın taşınmasını bina ve sokak koşullarına göre planlıyoruz. Dış cephe taşıma asansörünün uygunluğunu ücretsiz keşifte değerlendirip araç, ekip ve ambalajlama ihtiyacını birlikte belirliyoruz.',
+      'Konyaaltı, Muratpaşa, Kepez, Döşemealtı, Aksu ve Serik dahil Antalya genelinde ev eşyalarınızın taşınmasını bina ve sokak koşullarına göre planlıyoruz. Dış cephe taşıma asansörünün uygunluğunu ücretsiz keşifte değerlendirip araç, ekip ve ambalajlama ihtiyacını birlikte belirliyoruz.',
     highlights: ['Ücretsiz yerinde keşif', 'Bina ve erişim değerlendirmesi', 'Ambalajlama ve montaj planı'],
     idealFor: ['Yüksek katlardan ev taşıma', 'Merdiven geçişi dar olan binalar', 'Büyük ve hacimli mobilyalar', 'Bina asansörü yetersiz olan taşınmalar', 'Komple ev eşyası taşıma', 'Uygun cepheden parça eşya taşıma'],
     localDistricts: antalyaDistricts,
@@ -314,7 +314,7 @@ export const servicePages: Record<string, ServicePage> = {
       { question: 'Bina asansörü varken dış cephe asansörü gerekir mi?', answer: 'Her zaman gerekmez. Bina asansörünün kapasitesi, eşyanın ölçüleri ve bina kullanım koşulları dikkate alınır. Gereksiz bir hizmet önermek yerine taşıma ihtiyacına uygun yöntem planlanır.' },
       { question: 'Tek parça büyük mobilya için de kullanılır mı?', answer: 'Evet, eşya ve bina koşulları uygun olduğunda parça eşya taşımasında da değerlendirilebilir. Fotoğraf, ölçü ve kat bilgisiyle teklif isteyebilirsiniz.' },
       { question: 'Ambalajlama, montaj ve sigorta hizmeti var mı?', answer: 'Ambalajlama, mobilya sökme-kurma ve sigortalı taşıma hizmetleri sunuyoruz. Hangi işlemlerin dahil olduğu ile poliçe teminat ve istisnaları taşıma öncesinde açıkça belirlenir.' },
-      { question: 'Hangi ilçeler için keşif isteyebilirim?', answer: 'Konyaaltı, Muratpaşa, Kepez ve Döşemealtı’ndaki taşınmalar için ücretsiz keşif talep edebilirsiniz. İki adres ve uygun olduğunuz tarih üzerinden randevu planlanır.' },
+      { question: 'Hangi ilçeler için keşif isteyebilirim?', answer: 'Aksu ve Serik dahil Antalya genelindeki taşınmalar için ücretsiz keşif talep edebilirsiniz; hizmetimiz listedeki ilçelerle sınırlı değildir. İki adres ve uygun olduğunuz tarih üzerinden randevu planlanır.' },
     ],
   },
 };

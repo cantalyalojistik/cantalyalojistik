@@ -30,7 +30,7 @@ const localServices = [
     href: '/evden-eve-nakliyat',
     title: 'Evden eve nakliyat',
     description:
-      'Ücretsiz keşif, ambalajlama, mobilya sökme-kurma ve taşıma planıyla evinizi Antalya içinde taşıyalım.',
+      'Ücretsiz keşif, ambalajlama, mobilya sökme-kurma ve profesyonel ekibimizle evinizi şehir içinde veya şehirler arasında taşıyalım.',
   },
   {
     icon: Sofa,
@@ -83,6 +83,18 @@ const districts = [
     description:
       'Daire, müstakil ev ve site taşınmalarında iki adres arasındaki mesafeyi, araç yaklaşımını ve taşınacak eşya hacmini birlikte hesaplıyoruz.',
   },
+  {
+    id: 'aksu',
+    name: 'Aksu',
+    description:
+      'Evden eve taşınma veya birkaç parça eşyanın teslimatı için alım ve varış adreslerini, katları ve gereken taşıma ekibini birlikte planlıyoruz.',
+  },
+  {
+    id: 'serik',
+    name: 'Serik',
+    description:
+      'Serik içindeki ve diğer ilçelerle arasındaki taşımalarınızda güzergâhı, eşya hacmini ve yükleme koşullarını değerlendirerek teklif hazırlıyoruz.',
+  },
 ];
 
 const faqs = [
@@ -119,7 +131,12 @@ const faqs = [
   {
     question: 'Hangi ilçelerde şehir içi taşıma yapıyorsunuz?',
     answer:
-      'Konyaaltı, Muratpaşa, Kepez ve Döşemealtı ilçelerinde ve bu ilçeler arasındaki evden eve ve parça eşya taşımalarını planlıyoruz. Mahalle ve kat bilgilerini paylaşmanız ilk teklif için yeterlidir.',
+      'Konyaaltı, Muratpaşa, Kepez, Döşemealtı, Aksu ve Serik dahil Antalya genelinde evden eve ve parça eşya taşıma taleplerinizi değerlendiriyoruz. Hizmetimiz bu ilçelerle sınırlı değil; alım ve varış adreslerini, katları ve tarihi paylaşarak teklif alabilirsiniz.',
+  },
+  {
+    question: 'Şehirler arası evden eve nakliyat yapıyor musunuz?',
+    answer:
+      'Evet. Antalya şehir içi taşımaların yanında Türkiye genelinde şehirler arası profesyonel evden eve nakliyat hizmeti de sunuyoruz. Çıkış ve varış illerini, eşya miktarını ve tarihi paylaşın; araç, ekip ve taşıma kapsamını birlikte planlayalım.',
   },
 ];
 
@@ -130,15 +147,19 @@ const structuredData = {
   name: 'Cantalya Nakliye & Lojistik',
   url: siteUrl,
   description:
-    'Antalya Konyaaltı, Muratpaşa, Kepez ve Döşemealtı ilçelerinde evden eve nakliyat, asansörlü taşıma ve şehir içi parça eşya taşıma.',
+    'Antalya şehir içi ve şehirler arası profesyonel evden eve nakliyat, asansörlü taşıma ve Antalya genelinde parça eşya taşıma.',
   telephone: '+90 541 541 32 89',
-  areaServed: districts.map(({ name }) => ({
-    '@type': 'AdministrativeArea',
-    name: `${name}, Antalya`,
-  })),
+  areaServed: [
+    { '@type': 'Country', name: 'Türkiye' },
+    { '@type': 'AdministrativeArea', name: 'Antalya' },
+    ...districts.map(({ name }) => ({
+      '@type': 'AdministrativeArea',
+      name: `${name}, Antalya`,
+    })),
+  ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Antalya şehir içi taşıma hizmetleri',
+    name: 'Şehir içi ve şehirler arası taşıma hizmetleri',
     itemListElement: localServices.map(({ title, href }) => ({
       '@type': 'Offer',
       itemOffered: {
@@ -174,10 +195,10 @@ function QuoteForm({
     const fields = new FormData(event.currentTarget);
     const field = (name: string) => String(fields.get(name) ?? '').trim();
     const message = [
-      'Merhaba Cantalya Nakliye & Lojistik, Antalya şehir içi taşıma teklifi almak istiyorum.',
+      'Merhaba Cantalya Nakliye & Lojistik, taşıma hizmetiniz için teklif almak istiyorum.',
       `Hizmet: ${service}`,
-      `Çıkış ilçesi / mahallesi: ${field('origin')}`,
-      `Varış ilçesi / mahallesi: ${field('destination')}`,
+      `Çıkış ili / ilçesi / mahallesi: ${field('origin')}`,
+      `Varış ili / ilçesi / mahallesi: ${field('destination')}`,
       `${isSmallMove ? 'Taşınacak eşyalar' : 'Oda / eşya bilgisi'}: ${field('items')}`,
       `Çıkış ve varış katları / asansör: ${field('access') || 'Görüşmede paylaşacağım'}`,
       `Tercih edilen tarih: ${field('date') || 'Birlikte planlayalım'}`,
@@ -230,7 +251,7 @@ function QuoteForm({
           </select>
         </label>
         <label className="field-label">
-          Nereden? İlçe / mahalle
+          Nereden? İl / ilçe / mahalle
           <Input
             name="origin"
             required
@@ -240,7 +261,7 @@ function QuoteForm({
           />
         </label>
         <label className="field-label">
-          Nereye? İlçe / mahalle
+          Nereye? İl / ilçe / mahalle
           <Input
             name="destination"
             required
@@ -397,8 +418,8 @@ export default function Home() {
               Antalya’da ev ve parça eşya taşıma
             </div>
             <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-[1.1] tracking-[-0.045em] text-white sm:text-6xl">
-              Antalya Şehir İçi{' '}
-              <span className="text-orange-400">Evden Eve Nakliyat</span>
+              Antalya Şehir İçi ve Şehirler Arası{' '}
+              <span className="text-orange-400">Profesyonel Evden Eve Nakliyat</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
               Evinizin tamamını da, birkaç parça eşyanızı da profesyonel
@@ -406,7 +427,8 @@ export default function Home() {
               kapsamı net ve uygun fiyatlı teklifinizi hazırlayalım.
             </p>
             <p className="mt-4 text-sm leading-6 text-slate-400">
-              Konyaaltı · Muratpaşa · Kepez · Döşemealtı
+              Konyaaltı · Muratpaşa · Kepez · Döşemealtı · Aksu · Serik ve
+              Antalya’nın diğer ilçeleri
             </p>
             <div className="mt-7 flex flex-wrap gap-2">
               {['Asansörlü taşıma', 'Ambalajlama', 'Mobilya sökme-kurma'].map(
@@ -580,14 +602,15 @@ export default function Home() {
       </section>
       <section id="bolgeler" className="scroll-mt-24 py-16 sm:py-24">
         <div className="site-shell">
-          <p className="eyebrow">Antalya şehir içi hizmet bölgeleri</p>
+          <p className="eyebrow">Antalya ve şehirler arası taşıma</p>
           <h2 className="section-title">
-            Dört ilçede, evden eve ve parça eşya taşıma.
+            Antalya genelinde evden eve ve parça eşya taşıma.
           </h2>
           <p className="section-copy">
-            Aynı mahalledeki kısa bir taşıma da, ilçeler arasındaki ev
-            değişikliği de olabilir. Nereden nereye taşınacağınızı söyleyin;
-            bina ve eşya koşullarına göre planlayalım.
+            Aynı mahallede, Antalya’nın ilçeleri arasında veya başka bir
+            şehre taşınabilirsiniz. Hizmetimiz aşağıdaki ilçelerle sınırlı
+            değil. Nereden nereye taşınacağınızı söyleyin; bina ve eşya
+            koşullarına göre planlayalım.
           </p>
           <div className="mt-10 grid gap-5 sm:grid-cols-2">
             {districts.map((district) => (
@@ -694,14 +717,14 @@ export default function Home() {
                 Neyi, nereden nereye taşıtmak istiyorsunuz?
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-orange-50">
-                Antalya şehir içi taşımanız için fotoğraf gönderin veya ücretsiz
+                Şehir içi veya şehirler arası taşımanız için fotoğraf gönderin ya da ücretsiz
                 keşif isteyin. İhtiyacınıza uygun teklifi birlikte
                 netleştirelim.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <a
-                href={`https://wa.me/${phoneInternational}?text=${encodeURIComponent('Merhaba Cantalya Nakliye & Lojistik, Antalya şehir içi evden eve veya parça eşya taşıma için teklif almak istiyorum.')}`}
+                href={`https://wa.me/${phoneInternational}?text=${encodeURIComponent('Merhaba Cantalya Nakliye & Lojistik, evden eve veya parça eşya taşıma için teklif almak istiyorum.')}`}
                 target="_blank"
                 rel="noreferrer"
                 className={cn(
@@ -733,7 +756,7 @@ export default function Home() {
               Cantalya Nakliye &amp; Lojistik
             </strong>
             <p className="mt-1">
-              Antalya evden eve nakliyat ve şehir içi parça eşya taşıma
+              Şehir içi ve şehirler arası evden eve nakliyat · Antalya parça eşya taşıma
             </p>
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-3">

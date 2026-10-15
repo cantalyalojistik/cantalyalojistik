@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'Antalya Evden Eve Nakliyat | Cantalya Nakliye & Lojistik',
   description:
-    'Antalya şehir içi evden eve nakliyat, asansörlü taşıma ve parça eşya taşıma. Ücretsiz keşif ve hızlı teklif: Konyaaltı, Muratpaşa, Kepez, Döşemealtı.',
+    'Antalya şehir içi ve şehirler arası profesyonel evden eve nakliyat. Asansörlü taşıma, parça eşya, ücretsiz keşif ve hızlı teklif. Aksu ve Serik dahil.',
   openGraph: {
     title: 'Antalya Evden Eve Nakliyat | Cantalya Nakliye & Lojistik',
     description:
-      'Eviniz veya birkaç parça eşyanız için Antalya şehir içi taşıma. Ücretsiz keşif, ambalajlama ve ihtiyacınıza uygun fiyat teklifi.',
+      'Şehir içi ve şehirler arası profesyonel evden eve nakliyat; Antalya genelinde parça eşya taşıma. Ücretsiz keşif ve ihtiyacınıza uygun teklif.',
     type: 'website',
     locale: 'tr_TR',
     url: siteUrl,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Antalya Evden Eve Nakliyat | Cantalya Nakliye & Lojistik',
     description:
-      'Antalya şehir içi ev taşıma ve küçük nakliye. Ücretsiz keşif, asansörlü taşıma ve hızlı teklif.',
+      'Antalya şehir içi ve şehirler arası evden eve nakliyat, parça eşya taşıma. Ücretsiz keşif, asansörlü taşıma ve hızlı teklif.',
     images: [`${siteUrl}/og.png`],
   },
   robots: {
