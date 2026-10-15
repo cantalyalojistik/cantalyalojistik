@@ -6,11 +6,27 @@ const root = 'dist/client';
 const origin = 'https://cantalyalojistik.com';
 const previousRoutes = ['/', '/ambar-nakliye', '/antalya-nakliye', '/evden-eve-nakliyat', '/gizlilik', '/paletli-yuk-tasima', '/parca-esya-tasima', '/parsiyel-nakliye', '/sehirler-arasi-nakliye', '/ticari-yuk-tasima'];
 const newRoutes = ['/antalya-parca-esya-tasima', '/asansorlu-evden-eve-nakliyat'];
-const routeFile = (pathname) => join(root, pathname === '/' ? 'index.html' : `${pathname.replace(/^\//, '').replace(/\/$/, '')}.html`);
+// With trailingSlash: false, /service maps to service.html; /service/ is not an alias.
+const routeFile = (pathname) => join(root, pathname === '/' ? 'index.html' : `${pathname.replace(/^\//, '')}.html`);
 const sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
+const sitemapUrls = [...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/g)].map((match) => match[1]);
+assert(sitemapUrls.length > 0, 'Sitemap has no URLs');
+assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, 'Duplicate sitemap URLs');
+for (const loc of sitemapUrls) {
+  const url = new URL(loc);
+  assert.equal(url.origin, origin, `Wrong sitemap origin ${loc}`);
+  assert(!url.search && !url.hash, `Sitemap URL must not have query or fragment ${loc}`);
+  assert(url.pathname === '/' || !url.pathname.endsWith('/'), `Noncanonical trailing slash in sitemap ${loc}`);
+  const destination = routeFile(url.pathname);
+  assert(existsSync(destination), `Missing sitemap destination ${loc}`);
+  const html = readFileSync(destination, 'utf8');
+  const canonical = html.match(/<link\b[^>]*rel="canonical"[^>]*href="([^"]+)"/);
+  assert(canonical, `Missing canonical for sitemap URL ${loc}`);
+  assert.equal(new URL(canonical[1]).href, url.href, `Sitemap/canonical mismatch ${loc}`);
+}
 for (const path of [...previousRoutes, ...newRoutes]) {
   assert(existsSync(routeFile(path)), `Missing route ${path}`);
-  assert(sitemap.includes(`${origin}${path}`), `Missing sitemap entry ${path}`);
+  assert(sitemapUrls.includes(`${origin}${path}`), `Missing exact sitemap entry ${path}`);
 }
 let linkCount = 0;
 for (const file of readdirSync(root).filter((file) => file.endsWith('.html') && file !== '404.html')) {
@@ -33,4 +49,4 @@ for (const file of readdirSync(root).filter((file) => file.endsWith('.html') && 
     linkCount++;
   }
 }
-console.log(`PASS: ${previousRoutes.length} existing + ${newRoutes.length} new pages; ${linkCount} internal links; H1, metadata, JSON-LD and sitemap checks.`);
+console.log(`PASS: ${previousRoutes.length} existing + ${newRoutes.length} new pages; ${linkCount} internal links; H1, metadata, JSON-LD and ${sitemapUrls.length} exact sitemap/canonical checks.`);
