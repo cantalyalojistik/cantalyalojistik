@@ -37,7 +37,7 @@ for (const path of ['/', '/evden-eve-nakliyat', '/antalya-parca-esya-tasima', '/
   assert(html.includes('Aksu') && html.includes('Serik'), `Missing Antalya service examples ${path}`);
   assert(!/dört ilçede/i.test(html), `Outdated four-district restriction ${path}`);
   assert(html.includes('hero-media'), `Missing moving photo background ${path}`);
-  assert(html.includes('temsili hizmet görseli'), `Missing representative-image disclosure ${path}`);
+  assert(!/yapay zek[âa]|temsili|temsilî|temsilidir|temsil eden/i.test(html), `Unexpected image-origin label ${path}`);
   assert(html.includes('fetchPriority="high"') || html.includes('fetchpriority="high"'), `Missing priority hero image ${path}`);
 }
 for (const file of readdirSync(root).filter((file) => file.endsWith('.html') && file !== '404.html')) {

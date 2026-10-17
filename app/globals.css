@@ -212,12 +212,6 @@
       linear-gradient(0deg, rgb(4 18 29 / 78%), transparent 45%);
   }
 
-  .photo-disclosure {
-    color: #cbd5e1;
-    font-size: 0.6875rem;
-    line-height: 1.5;
-  }
-
   .service-photo-card {
     position: relative;
     isolation: isolate;

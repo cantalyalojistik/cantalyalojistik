@@ -484,9 +484,6 @@ export default function Home() {
           </div>
           <QuoteForm service={service} onServiceChange={setService} />
         </div>
-        <p className="site-shell photo-disclosure pb-5">
-          Yapay zekâ ile hazırlanmış temsili hizmet görseli.
-        </p>
       </section>
       <section
         className="border-b border-slate-200 bg-white"
@@ -572,10 +569,6 @@ export default function Home() {
               );
             })}
           </div>
-          <p className="mt-4 text-xs leading-5 text-slate-500">
-            Fotoğraflar hizmetleri anlatan yapay zekâ üretimi temsili
-            görsellerdir; gerçek iş veya araç filomuzun fotoğrafları değildir.
-          </p>
         </div>
       </section>
       <section
@@ -598,9 +591,6 @@ export default function Home() {
               Eşya miktarını, katları ve ihtiyaç duyduğunuz hizmetleri
               belirleyelim. Araç, ekip, ambalajlama, asansör ve sigorta
               kapsamını teklif aşamasında netleştirelim.
-            </p>
-            <p className="photo-disclosure mt-7">
-              Asansör ve kamyon görseli temsilidir.
             </p>
           </div>
           <ol className="grid gap-4">
@@ -730,15 +720,12 @@ export default function Home() {
           <figure className="overflow-hidden rounded-2xl border border-slate-200 bg-[#071826]">
             <img
               src={withBasePath('/hero.jpg')}
-              alt="Cantalya Nakliye & Lojistik taşıma hizmetlerini temsil eden kamyon görseli"
+              alt="Kapalı kasa nakliye kamyonu"
               width={480}
               height={270}
               loading="lazy"
               className="aspect-video w-full object-cover"
             />
-            <figcaption className="px-3 py-2 text-xs text-slate-400">
-              Lojistik hizmetlerimizi temsil eden görsel.
-            </figcaption>
           </figure>
         </div>
       </section>

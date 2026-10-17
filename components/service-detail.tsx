@@ -127,9 +127,6 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
                 <div className="aspect-[16/10] overflow-hidden rounded-xl">
                   <MovingPhoto kind={photoKind} sizes="(min-width: 1024px) 480px, 100vw" />
                 </div>
-                <figcaption className="photo-disclosure mt-3">
-                  Yapay zekâ ile hazırlanmış temsili hizmet görseli.
-                </figcaption>
               </figure>
             )}
             <span className="service-icon"><Truck className="size-6" aria-hidden="true" /></span>

@@ -4,11 +4,11 @@ import { cn } from '@/lib/utils';
 const movingPhotos = {
   packing: {
     file: 'ambalajli-ev-esyalari',
-    alt: 'Balonlu naylonla ambalajlanmış koltuk, mobilya ve taşınma kolilerini gösteren temsili görsel',
+    alt: 'Balonlu naylonla ambalajlanmış koltuk, mobilya ve taşınma kolileri',
   },
   lift: {
     file: 'asansorlu-ev-tasima',
-    alt: 'Apartman cephesindeki eşya taşıma asansörü ve nakliye kamyonunu gösteren temsili görsel',
+    alt: 'Apartman cephesindeki eşya taşıma asansörü ve nakliye kamyonu',
   },
 } as const;
 

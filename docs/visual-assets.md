@@ -5,7 +5,7 @@
 - `public/images/ambalajli-ev-esyalari-{small,large}.webp`: balonlu naylonla ambalajlanmış koltuk, tekli koltuk, mobilya, halı ve koliler.
 - `public/images/asansorlu-ev-tasima-{small,large}.webp`: apartman önündeki dış cephe eşya asansörü ve beyaz kapalı kasa kamyon.
 
-Kaynak: OpenAI yerleşik Imagegen aracıyla oluşturulmuş 1536 × 1024 görseller. Bunlar şirketin gerçek işleri, personeli veya araç filosuna ait fotoğraflar değildir. Ana sayfa ve ilgili hizmet sayfalarında görünür temsili görsel açıklamaları korunmalıdır.
+Kaynak: OpenAI yerleşik Imagegen aracıyla oluşturulmuş 1536 × 1024 görseller. Bunlar şirketin gerçek işleri, personeli veya araç filosuna ait fotoğraflar değildir. Kullanıcının 17 Ekim 2026 tarihli sonraki talebiyle sitedeki görsel kaynağı açıklamaları kaldırıldı; kaynak bilgisi yalnızca bu geliştirme belgesinde tutulur. Görselleri gerçek iş, personel veya filo fotoğrafı olarak tanıtan iddialar eklenmemelidir.
 
 Yayın dosyaları Sharp ile 720 × 480 ve 1440 × 960 WebP olarak sıkıştırıldı. Fotoğraflar CSS arka plan katmanlarıyla okunabilir metin arkasında kullanılır. Yeni görseller yüksek çözünürlüklü PNG yerine bu duyarlı türevlerden yüklenmelidir. Eski `public/hero.jpg` silinmedi.
 
