@@ -36,6 +36,9 @@ for (const path of ['/', '/evden-eve-nakliyat', '/antalya-parca-esya-tasima', '/
   const html = readFileSync(routeFile(path), 'utf8');
   assert(html.includes('Aksu') && html.includes('Serik'), `Missing Antalya service examples ${path}`);
   assert(!/dört ilçede/i.test(html), `Outdated four-district restriction ${path}`);
+  assert(html.includes('hero-media'), `Missing moving photo background ${path}`);
+  assert(html.includes('temsili hizmet görseli'), `Missing representative-image disclosure ${path}`);
+  assert(html.includes('fetchPriority="high"') || html.includes('fetchpriority="high"'), `Missing priority hero image ${path}`);
 }
 for (const file of readdirSync(root).filter((file) => file.endsWith('.html') && file !== '404.html')) {
   const html = readFileSync(join(root, file), 'utf8');
@@ -45,6 +48,15 @@ for (const file of readdirSync(root).filter((file) => file.endsWith('.html') && 
   assert(html.includes(`rel="canonical" href="${origin}${route === '/' ? '/' : route}"`) || html.includes(`rel="canonical" href="${origin}${route === '/' ? '' : route}"`), `Wrong canonical ${route}`);
   assert(!html.includes('instagram.com/cantalyanakliyat'), `Wrong brand association ${route}`);
   for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(match[1]);
+  for (const [, src] of html.matchAll(/<img\b[^>]*src="([^"]+)"/g)) {
+    if (src.startsWith('/')) assert(existsSync(join(root, src.slice(1))), `Missing image ${route} -> ${src}`);
+  }
+  for (const [, srcSet] of html.matchAll(/<img\b[^>]*src[Ss]et="([^"]+)"/g)) {
+    for (const candidate of srcSet.split(',')) {
+      const src = candidate.trim().split(/\s+/)[0];
+      if (src.startsWith('/')) assert(existsSync(join(root, src.slice(1))), `Missing responsive image ${route} -> ${src}`);
+    }
+  }
   for (const [, href] of html.matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
     const url = new URL(href.replaceAll('&amp;', '&'), `${origin}${route}`);
     if (url.origin !== origin) continue;

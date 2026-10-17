@@ -5,6 +5,7 @@ import type { ServicePage } from '@/lib/service-pages';
 import { siteUrl } from '@/lib/service-pages';
 import { withBasePath } from '@/lib/site';
 import { cn } from '@/lib/utils';
+import { MovingPhoto, type MovingPhotoKind } from '@/components/moving-photo';
 
 const phoneDisplay = '0541 541 32 89';
 const phoneInternational = '905415413289';
@@ -12,6 +13,12 @@ const phoneInternational = '905415413289';
 export function ServiceDetail({ service }: { service: ServicePage }) {
   const pageUrl = `${siteUrl}/${service.slug}`;
   const offersIntercity = service.slug === 'evden-eve-nakliyat' || !service.localDistricts;
+  const servicePhotos: Partial<Record<string, MovingPhotoKind>> = {
+    'evden-eve-nakliyat': 'packing',
+    'antalya-parca-esya-tasima': 'packing',
+    'asansorlu-evden-eve-nakliyat': 'lift',
+  };
+  const photoKind = servicePhotos[service.slug];
   const structuredData = [
     {
       '@context': 'https://schema.org',
@@ -78,7 +85,15 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
         </div>
       </header>
 
-      <section className="hero-section">
+      <section className={cn('hero-section', photoKind && 'photo-hero')}>
+        {photoKind && (
+          <>
+            <div className="hero-media" aria-hidden="true">
+              <MovingPhoto kind={photoKind} priority decorative />
+            </div>
+            <div className="hero-photo-shade" aria-hidden="true" />
+          </>
+        )}
         <div className="site-shell grid items-center gap-12 py-16 lg:grid-cols-[1.12fr_.88fr] lg:py-24">
           <div>
             <a href={withBasePath('/')} className="inline-flex items-center gap-2 text-sm font-semibold text-orange-300 hover:text-orange-200">
@@ -106,7 +121,17 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
               </a>
             )}
           </div>
-          <aside className="rounded-[1.75rem] border border-white/10 bg-white/[0.055] p-7 text-white shadow-[0_28px_70px_rgb(0_0_0/28%)] sm:p-9">
+          <aside className={cn('rounded-[1.75rem] border border-white/10 p-7 text-white shadow-[0_28px_70px_rgb(0_0_0/28%)] sm:p-9', photoKind ? 'overflow-hidden bg-[#0b2132]/90 backdrop-blur-sm' : 'bg-white/[0.055]')}>
+            {photoKind && (
+              <figure className="mb-7">
+                <div className="aspect-[16/10] overflow-hidden rounded-xl">
+                  <MovingPhoto kind={photoKind} sizes="(min-width: 1024px) 480px, 100vw" />
+                </div>
+                <figcaption className="photo-disclosure mt-3">
+                  Yapay zekâ ile hazırlanmış temsili hizmet görseli.
+                </figcaption>
+              </figure>
+            )}
             <span className="service-icon"><Truck className="size-6" aria-hidden="true" /></span>
             <h2 className="mt-7 text-2xl font-semibold">Bu hizmet kimler için uygun?</h2>
             <ul className="mt-6 grid gap-4">

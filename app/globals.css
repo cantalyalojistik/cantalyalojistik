@@ -154,7 +154,11 @@
 
   .hero-section {
     background:
-      radial-gradient(circle at 78% 18%, rgb(249 115 22 / 12%), transparent 26rem),
+      radial-gradient(
+        circle at 78% 18%,
+        rgb(249 115 22 / 12%),
+        transparent 26rem
+      ),
       linear-gradient(135deg, #071826 0%, #0a2437 58%, #061521 100%);
     position: relative;
   }
@@ -173,6 +177,155 @@
 
   .hero-section > * {
     position: relative;
+  }
+
+  .photo-hero {
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .photo-hero::before {
+    display: none;
+  }
+
+  .hero-section > .hero-media,
+  .hero-section > .hero-photo-shade,
+  .process-media,
+  .process-photo-shade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-media img {
+    object-position: 60% 52%;
+  }
+
+  .hero-photo-shade {
+    background:
+      linear-gradient(
+        90deg,
+        rgb(4 18 29 / 92%) 0%,
+        rgb(4 18 29 / 78%) 45%,
+        rgb(4 18 29 / 40%) 100%
+      ),
+      linear-gradient(0deg, rgb(4 18 29 / 78%), transparent 45%);
+  }
+
+  .photo-disclosure {
+    color: #cbd5e1;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+  }
+
+  .service-photo-card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    background: #071826;
+    box-shadow: 0 16px 36px rgb(15 23 42 / 10%);
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .service-photo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 45px rgb(15 23 42 / 17%);
+  }
+
+  .service-photo-card:focus-visible {
+    outline: 3px solid #ea580c;
+    outline-offset: 5px;
+  }
+
+  .service-photo-media,
+  .service-photo-shade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .service-photo-media img {
+    object-position: 55% 30%;
+  }
+
+  .service-photo-media img.small-move-photo {
+    object-position: 85% center;
+  }
+
+  .service-photo-shade {
+    background: linear-gradient(
+      180deg,
+      transparent 8%,
+      rgb(4 18 29 / 35%) 26%,
+      rgb(4 18 29 / 94%) 52%,
+      #04121d 100%
+    );
+  }
+
+  .service-photo-content {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 10rem 1.5rem 1.75rem;
+  }
+
+  .moving-process {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .process-media img {
+    object-position: 28% 60%;
+  }
+
+  .process-photo-shade {
+    background: linear-gradient(
+      90deg,
+      rgb(4 18 29 / 83%),
+      rgb(4 18 29 / 50%) 48%,
+      rgb(4 18 29 / 92%) 100%
+    );
+  }
+
+  .moving-process .process-row {
+    background: rgb(7 24 38 / 88%);
+    backdrop-filter: blur(4px);
+  }
+
+  @media (max-width: 767px) {
+    .hero-section > .hero-media {
+      bottom: auto;
+      height: 900px;
+      max-height: 100%;
+    }
+
+    .hero-media img {
+      object-position: 60% top;
+    }
+
+    .hero-photo-shade {
+      background: linear-gradient(
+        180deg,
+        rgb(4 18 29 / 78%),
+        rgb(4 18 29 / 83%) 45%,
+        #071826 72%
+      );
+    }
+
+    .process-photo-shade {
+      background: linear-gradient(
+        180deg,
+        rgb(4 18 29 / 80%),
+        rgb(4 18 29 / 55%) 45%,
+        rgb(4 18 29 / 91%)
+      );
+    }
   }
 
   .hero-pill {
@@ -201,7 +354,9 @@
       calc(100% - 17px) 50%,
       calc(100% - 12px) 50%;
     background-repeat: no-repeat;
-    background-size: 5px 5px, 5px 5px;
+    background-size:
+      5px 5px,
+      5px 5px;
   }
 
   .quote-select option {
@@ -241,7 +396,11 @@
   }
 
   .route-panel::after {
-    background-image: radial-gradient(circle, rgb(15 23 42 / 13%) 1px, transparent 1.2px);
+    background-image: radial-gradient(
+      circle,
+      rgb(15 23 42 / 13%) 1px,
+      transparent 1.2px
+    );
     background-size: 18px 18px;
     content: '';
     height: 110%;

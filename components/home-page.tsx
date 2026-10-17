@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { reportContactConversion } from '@/components/google-ads-conversion-tracker';
+import { MovingPhoto, type MovingPhotoKind } from '@/components/moving-photo';
 import { Input } from '@/components/ui/input';
 import { siteUrl, withBasePath } from '@/lib/site';
 import { cn } from '@/lib/utils';
@@ -27,6 +28,7 @@ type QuoteService = 'Evden eve nakliyat' | 'Şehir içi parça eşya taşıma';
 const localServices = [
   {
     icon: House,
+    photo: 'packing' as MovingPhotoKind,
     href: '/evden-eve-nakliyat',
     title: 'Evden eve nakliyat',
     description:
@@ -34,6 +36,7 @@ const localServices = [
   },
   {
     icon: Sofa,
+    photo: 'packing' as MovingPhotoKind,
     href: '/antalya-parca-esya-tasima',
     title: 'Şehir içi parça eşya taşıma',
     description:
@@ -41,6 +44,7 @@ const localServices = [
   },
   {
     icon: MoveVertical,
+    photo: 'lift' as MovingPhotoKind,
     href: '/asansorlu-evden-eve-nakliyat',
     title: 'Asansörlü ev taşıma',
     description:
@@ -410,7 +414,11 @@ export default function Home() {
           </a>
         </div>
       </header>
-      <section id="top" className="hero-section scroll-mt-24">
+      <section id="top" className="hero-section photo-hero scroll-mt-24">
+        <div className="hero-media" aria-hidden="true">
+          <MovingPhoto kind="packing" priority decorative />
+        </div>
+        <div className="hero-photo-shade" aria-hidden="true" />
         <div className="site-shell grid items-center gap-10 py-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-12 lg:py-20">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-300/25 bg-orange-400/10 px-4 py-2 text-sm font-medium text-orange-200">
@@ -419,7 +427,9 @@ export default function Home() {
             </div>
             <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-[1.1] tracking-[-0.045em] text-white sm:text-6xl">
               Antalya Şehir İçi ve Şehirler Arası{' '}
-              <span className="text-orange-400">Profesyonel Evden Eve Nakliyat</span>
+              <span className="text-orange-400">
+                Profesyonel Evden Eve Nakliyat
+              </span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
               Evinizin tamamını da, birkaç parça eşyanızı da profesyonel
@@ -474,6 +484,9 @@ export default function Home() {
           </div>
           <QuoteForm service={service} onServiceChange={setService} />
         </div>
+        <p className="site-shell photo-disclosure pb-5">
+          Yapay zekâ ile hazırlanmış temsili hizmet görseli.
+        </p>
       </section>
       <section
         className="border-b border-slate-200 bg-white"
@@ -523,37 +536,57 @@ export default function Home() {
                 <a
                   key={item.href}
                   href={withBasePath(item.href)}
-                  className="service-card flex flex-col"
+                  className="service-photo-card group"
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="service-icon">
-                      <Icon className="size-6" aria-hidden="true" />
-                    </span>
-                    <ArrowUpRight
-                      className="size-5 text-orange-500"
-                      aria-hidden="true"
+                  <div className="service-photo-media">
+                    <MovingPhoto
+                      kind={item.photo}
+                      sizes="(min-width: 1280px) 380px, (min-width: 768px) 33vw, 100vw"
+                      className={
+                        item.icon === Sofa ? 'small-move-photo' : undefined
+                      }
                     />
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-slate-950">
-                    {item.title}
-                  </h3>
-                  <p className="mb-5 mt-3 text-sm leading-6 text-slate-600">
-                    {item.description}
-                  </p>
-                  <span className="mt-auto inline-flex text-sm font-semibold text-orange-600">
-                    Hizmeti inceleyin
-                  </span>
+                  <div className="service-photo-shade" aria-hidden="true" />
+                  <div className="service-photo-content">
+                    <div className="flex items-center justify-between">
+                      <span className="grid size-11 place-items-center rounded-xl border border-white/20 bg-white/10 text-orange-300 backdrop-blur-sm">
+                        <Icon className="size-6" aria-hidden="true" />
+                      </span>
+                      <ArrowUpRight
+                        className="size-5 text-orange-300 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <h3 className="mt-5 text-xl font-semibold text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mb-5 mt-3 text-sm leading-6 text-slate-200">
+                      {item.description}
+                    </p>
+                    <span className="mt-auto inline-flex text-sm font-semibold text-orange-300">
+                      Hizmeti inceleyin
+                    </span>
+                  </div>
                 </a>
               );
             })}
           </div>
+          <p className="mt-4 text-xs leading-5 text-slate-500">
+            Fotoğraflar hizmetleri anlatan yapay zekâ üretimi temsili
+            görsellerdir; gerçek iş veya araç filomuzun fotoğrafları değildir.
+          </p>
         </div>
       </section>
       <section
         id="nasil-calisir"
-        className="scroll-mt-24 bg-[#0b2234] py-16 text-white sm:py-24"
+        className="moving-process scroll-mt-24 bg-[#0b2234] py-16 text-white sm:py-24"
       >
-        <div className="site-shell grid gap-10 lg:grid-cols-[.85fr_1.15fr]">
+        <div className="process-media" aria-hidden="true">
+          <MovingPhoto kind="lift" decorative />
+        </div>
+        <div className="process-photo-shade" aria-hidden="true" />
+        <div className="site-shell relative grid gap-10 lg:grid-cols-[.85fr_1.15fr]">
           <div>
             <p className="eyebrow text-orange-300">
               Önce keşif, sonra net plan
@@ -565,6 +598,9 @@ export default function Home() {
               Eşya miktarını, katları ve ihtiyaç duyduğunuz hizmetleri
               belirleyelim. Araç, ekip, ambalajlama, asansör ve sigorta
               kapsamını teklif aşamasında netleştirelim.
+            </p>
+            <p className="photo-disclosure mt-7">
+              Asansör ve kamyon görseli temsilidir.
             </p>
           </div>
           <ol className="grid gap-4">
@@ -607,10 +643,10 @@ export default function Home() {
             Antalya genelinde evden eve ve parça eşya taşıma.
           </h2>
           <p className="section-copy">
-            Aynı mahallede, Antalya’nın ilçeleri arasında veya başka bir
-            şehre taşınabilirsiniz. Hizmetimiz aşağıdaki ilçelerle sınırlı
-            değil. Nereden nereye taşınacağınızı söyleyin; bina ve eşya
-            koşullarına göre planlayalım.
+            Aynı mahallede, Antalya’nın ilçeleri arasında veya başka bir şehre
+            taşınabilirsiniz. Hizmetimiz aşağıdaki ilçelerle sınırlı değil.
+            Nereden nereye taşınacağınızı söyleyin; bina ve eşya koşullarına
+            göre planlayalım.
           </p>
           <div className="mt-10 grid gap-5 sm:grid-cols-2">
             {districts.map((district) => (
@@ -717,9 +753,9 @@ export default function Home() {
                 Neyi, nereden nereye taşıtmak istiyorsunuz?
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-orange-50">
-                Şehir içi veya şehirler arası taşımanız için fotoğraf gönderin ya da ücretsiz
-                keşif isteyin. İhtiyacınıza uygun teklifi birlikte
-                netleştirelim.
+                Şehir içi veya şehirler arası taşımanız için fotoğraf gönderin
+                ya da ücretsiz keşif isteyin. İhtiyacınıza uygun teklifi
+                birlikte netleştirelim.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
@@ -756,7 +792,8 @@ export default function Home() {
               Cantalya Nakliye &amp; Lojistik
             </strong>
             <p className="mt-1">
-              Şehir içi ve şehirler arası evden eve nakliyat · Antalya parça eşya taşıma
+              Şehir içi ve şehirler arası evden eve nakliyat · Antalya parça
+              eşya taşıma
             </p>
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-3">
@@ -779,10 +816,22 @@ export default function Home() {
         </div>
       </footer>
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-3 border-t border-slate-200 bg-white/95 px-4 pt-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-[0_-6px_24px_rgb(0_0_0/8%)] backdrop-blur sm:hidden">
-        <a href={`tel:+${phoneInternational}`} className={cn(buttonVariants({ size: 'lg' }), 'h-12 rounded-xl bg-slate-950 text-white hover:bg-slate-800')}>
+        <a
+          href={`tel:+${phoneInternational}`}
+          className={cn(
+            buttonVariants({ size: 'lg' }),
+            'h-12 rounded-xl bg-slate-950 text-white hover:bg-slate-800',
+          )}
+        >
           <Phone className="size-4" aria-hidden="true" /> Hemen ara
         </a>
-        <a href="#teklif" className={cn(buttonVariants({ size: 'lg' }), 'h-12 rounded-xl bg-orange-600 text-white hover:bg-orange-500')}>
+        <a
+          href="#teklif"
+          className={cn(
+            buttonVariants({ size: 'lg' }),
+            'h-12 rounded-xl bg-orange-600 text-white hover:bg-orange-500',
+          )}
+        >
           <MessageCircle className="size-4" aria-hidden="true" /> Teklif al
         </a>
       </div>
